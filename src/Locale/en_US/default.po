@@ -1,0 +1,319 @@
+msgid "CARD_ALREADY_LINKED_WITH_YOUR_ACCOUNT"
+msgstr "This card is already linked with your account."
+
+msgid "NOT_ENOUGH_WALLET_CREDIT"
+msgstr "You do not have enough wallet credit to redeem."
+
+msgid "NOT_ENOUGH_STORE_CREDIT"
+msgstr "You do not have enough store credit to redeem."
+
+msgid "BAD_REQUEST"
+msgstr "Bad Request."
+
+msgid "RECORD_NOT_FOUND"
+msgstr "Bad Request. Record not found."
+
+msgid "SERVICE_NOT_REQUIRED"
+msgstr "Bad Request. Services can be used with Wallet Credit only."
+
+msgid "INVALID_TOKEN_PROVIDED"
+msgstr "Bad Request. Invalid Token Provided."
+
+msgid "MANDATORY_FIELD_MISSING"
+msgstr "Mandatory Field {0} is Missing."
+
+msgid "UNAUTHORIZED_REQUEST"
+msgstr "Unauthorized Request."
+
+msgid "LOGIN_FAILED"
+msgstr "We are not able to recognize you. Kindly Provide correct credentials."
+
+msgid "FORBIDDEN"
+msgstr "Bad Request."
+
+msgid "UNAUTHORIZED_REQUEST_USER_DISABLED"
+msgstr "Unauthorized Request. This user is Disabled. Kindly Contact Adminstrator"
+
+msgid "EMAIL_ID_LINKED_WITH_ANOTHER_ACCOUNT"
+msgstr "Provided Email Id is linked with any other account. Kindly provide correct email id."
+
+msgid "PHONE_LINKED_WITH_ANOTHER_ACCOUNT"
+msgstr "Provided Phone Number is linked with any other account. Kindly provide correct Phone Number."
+
+msgid "VENDOR_ALREADY_EXISTS_WITH_SAME_NAME"
+msgstr "Vendor with the provided name already exists."
+
+msgid "CARD_ALREADY_LINKED_WITH_ANOTHER_ACCOUNT"
+msgstr "Invalid Card. This card is already linked with any other user."
+
+msgid "INVALID_EMAIL_ID_PROVIDED"
+msgstr "Provided Email Id is Invalid. Kindly Provide Correct Email Id."
+
+msgid "INVALID_SERVICE_REQUEST"
+msgstr "Invalid Service Request."
+
+
+msgid "EMPTY_NOT_ALLOWED"
+msgstr "{0} cannot be empty. Kindly provide valid {0}"
+
+
+msgid "INVALID_PHONE_NUMBER_PROVIDED"
+msgstr "Provided Phone Number is Invalid."
+
+msgid "INVALID_STATUS_VALUE"
+msgstr "Invalid Status Value. Boolean Required."
+
+msgid "INVALID_IS_PRIMARY_VALUE"
+msgstr "Invalid is_primary field Value. Boolean Required."
+
+msgid "INVALID_VENDOR_CONTACT"
+msgstr "Invalid Contact Details. Kindly provide correct contact details."
+
+msgid "INVALID_VENDOR_REWARD_TYPE"
+msgstr "Invalid Reward Type data. Kindly provide correct reward type data."
+
+msgid "INVALID_REWARD_METHOD_ID"
+msgstr "Invalid Reward Method Id. Kindly provide correct reward method id."
+
+msgid "INVALID_CARD_NUMBER"
+msgstr "Invalid Card Number."
+
+msgid "VENDOR_NOT_ALLOWED_TO_OFFER_REQ_REWARD"
+msgstr "You are not allowed to offer requested reward type. Kindly contact administrator."
+
+msgid "INVALID_ATTRIBUTE_TYPE"
+msgstr "Invalid attrubute type. Attribute type can be only phone or card or email."
+
+msgid "REQUIRED_SERVICE_INFO"
+msgstr "Service info required to redeem wallet points."
+
+msgid "INTERNAL_SERVER_ERROR"
+msgstr "Internal Server Error."
+
+msgid "BILL_NOT_GENERATED_YET"
+msgstr "Bill of last month is not generated yet"
+
+msgid "BILL_NOT_AVAILABLE_YET"
+msgstr "Bill of requested month {0}/{1} is not available"
+
+msgid "INVALID_MONTH_PROVIDED"
+msgstr "Provided month is invalid"
+
+msgid "INVALID_YEAR"
+msgstr "Provided year is invalid"
+
+msgid "VENDOR_PROVIDED_MONTH_BILL_CANNOT_BE_GENERATED"
+msgstr "There is no transaction in requested month for the vendor, so Bill of requested month can not be generated."
+
+msgid "RESELLER_PROVIDED_MONTH_BILL_CANNOT_BE_GENERATED"
+msgstr "There is no transaction in requested month for the reseller, so Bill of requested month can not be generated."
+
+msgid "BILL_OF_FUTURE_MONTH_NOT_CANNOT_BE_PROVIDED"
+msgstr "Bill of future date cannot be genearted"
+
+msgid "KINDLY_PROVIDE_VALID_DATA"
+msgstr "Kindly provide valid data."
+
+msgid "ATTRIBUTE_AND_ATTRIBUTE_TYPE_REQUIRED"
+msgstr "Attribue and Attribute type is required."
+
+msgid "INVALID_VENDOR"
+msgstr "Kindly provide correct vendor id."
+
+msgid "ENTITY_DOES_NOT_EXISTS"
+msgstr "Bad Request. Requested {0} does not exist."
+
+msgid "ENTITY_SAVED"
+msgstr "The {0} has been saved."
+
+msgid "ENTITY_UPDATED"
+msgstr "{0} has been updated successfully."
+
+msgid "DATA_SAVED"
+msgstr "Data saved successfully."
+
+msgid "ENTITY_ERROR"
+msgstr "The {0} could not be saved. Please, try again."
+
+msgid "ENTITY_UPDATE_ERROR"
+msgstr "Unable to update {0}. Please, try again."
+
+msgid "ENTITY_DELETED"
+msgstr "The {0} has been deleted."
+
+msgid "ENTITY_DELETED_ERROR"
+msgstr "The {0} could not be deleted. Please, try again."
+
+msgid "THANK_YOU_MESSAGE"
+msgstr "Thank you for your interest we will contact you as per the preferred time."
+
+msgid "THANK_YOU_MESSAGE_ERROR"
+msgstr "There was some error. Please, try again."
+
+msgid "BULK_DATA_SAVED"
+msgstr "Data saved successfully"
+
+msgid "BULK_DATA_ERROR"
+msgstr "Data not saved. Please try again"
+
+msgid "COULD_NOT_SAVED"
+msgstr "Couldnot save entry in legacy redemptions table."
+
+msgid "ENTITY_NOT_CORRECT"
+msgstr "Entity wasn't made correctly!"
+
+msgid "RECORD_NOT_FOUND_IN"
+msgstr "Record not found in {0}"
+
+msgid "REWARD_ID_NOT_CORRESPOND"
+msgstr "Reward id doesnot correspond to instant gift card"
+
+msgid "ENTER_VALID_AMOUNT"
+msgstr "Enter a valid amount."
+
+msgid "INVALID_DATA_PROVIDED"
+msgstr "Kindly provide valid data."
+
+msgid "ENTITY_NOTIFIED"
+msgstr "Already Notified"
+
+msgid "VERIFIED_AND_CHANGE_PASSWORD"
+msgstr "Please check your email to verify yourself and change your password."
+
+msgid "PROVIDE_PASSWORD"
+msgstr "Kindly provide password."
+
+msgid "CONFIRM_PASSWORD"
+msgstr "Kindly provide confirm password"
+
+msgid "MISMATCH_PASSWORD"
+msgstr "Password mismatch. Kindly provide valid password."
+
+msgid "INVALID_RESET_PASSWORD"
+msgstr "Invalid Reset Password request."
+
+msgid "PASSWORD_CONDITION"
+msgstr "Only numbers 0-9, alphabets a-z A-Z and special characters ~!@#$%^*&;?.+_ are allowed."
+
+msgid "PASSWORD_USER_CONDITION"
+msgstr "Password should not contain 3 or more contiguous characters of username."
+
+msgid "PASSWORD_NAME_CONDITION"
+msgstr "Password should not contain 3 or more contiguous characters of full name."
+
+msgid "PASSWORD_LIMIT"
+msgstr "Can not use earlier used 6 passwords"
+
+msgid "NEW_PASSWORD_UPDATED"
+msgstr "Password Updated. Kindly login using new password."
+
+msgid "MAXIMUM_LOGIN_ATTEMPT"
+msgstr "You have exceeded the number of allowed login attempts. Please try again later."
+
+msgid "MISMATCH"
+msgstr "Whoops, these don't match"
+
+msgid "PASSWORD_EXPIRED"
+msgstr "Your password is expired, Kindly reset password to use buzzydoc."
+
+msgid "PASSWORD_LENGTH"
+msgstr "Minimum of 8 characters"
+
+msgid "NEW_PASSWORD"
+msgstr "New Password"
+
+msgid "CONFIRM_PASSWORD"
+msgstr "Confirm Password"
+
+msgid "RESET_PASSWORD"
+msgstr "Reset Password"
+
+msgid "FORGET_PASSWORD"
+msgstr "Forget Password"
+
+msgid "RESET_PASSWORD_LINK"
+msgstr "Enter your email address and your password will be reset and emailed to you."
+
+msgid "CHANGE_PASSWORD"
+msgstr "Change Password"
+
+msgid "NOT_FOUND"
+msgstr "{0} not found"
+
+msgid "PLEASE_SETUP_THE_CARD"
+msgstr "You have no payment card setup. Please click the button below to add the card."
+
+msgid "ALREADY_EXISTS"
+msgstr "{0} Already exists by this name, try a different Name"
+
+msgid "UNAUTHORIZED_PROVIDE_OLD_PASSWORD"
+msgstr "Unauthorized. Kindly Provide correct old Password"
+
+msgid "THREE_CONTIGUOUS_CHARACTERS"
+msgstr "Password should not contain 3 or more contiguous characters of {0}."
+
+msgid "SIX_EARLIER_PASSWORD"
+msgstr "Can not use earlier used 6 passwords"
+
+msgid "PEOPLEHUB_ERROR"
+msgstr "Request rejected by people hub."
+
+msgid "ENTITY_INTERNAL_ERRORS"
+msgstr "Entity has some errors."
+
+msgid "REQUEST_ERROR"
+msgstr "There was some error in generating request"
+
+msgid "POINTS_ALREADY_AWARDED"
+msgstr "Points have already been awarded"
+
+msgid "POINTS_NOT_AWARDED"
+msgstr "Could not award points"
+
+msgid "PEOPLE_HUB_REQUEST_REJECTED"
+msgstr "Request rejected by people hub."
+
+msgid "DATA_EMPTY"
+msgstr "Data cannot be empty"
+
+msgid "PEOPLEHUB_TRANSACTION_FAILED"
+msgstr "Peoplehub did not return transaction id"
+
+msgid "INVALID_DATA"
+msgstr "Invalid {0}. Kindly provide correct {0}."
+
+msgid "SWITCH_TO_LIVE_MESSAGE"
+msgstr "Hi {0}, You are linked to a demo account. Please go through this account thoroughly and then switch to Live. Also note that this action cannot be reverted back."
+
+msgid "SWITCH_TO_LIVE"
+msgstr "Switch To Live"
+
+msgid "SETUP_CARD"
+msgstr "A credit card has not been setup for your practice. Please add a new card from Practice Settings."
+
+msgid "VENDOR_ACCOUNT_DISABLED"
+msgstr "The account for {0} is disabled. Please contact your administrator or BuzzyDoc support"
+
+msgid "INVALID_REWARD_TYPE"
+msgstr "Invalid value for credit type  in vendor settings."
+
+msgid "TOKEN_ERROR"
+msgstr "Token Error."
+
+msgid "REVIEW_POINTS_UPDATED"
+msgstr "Points have been updated successfully."
+
+msgid "USERNAME_NOT_ALLOWED"
+msgstr "Username is not allowed in the request, it will be auto-generated for you"
+
+msgid "THRESHOLD_LESS_THAN_MINIMUM_DEPOSIT"
+msgstr "Threshold Value cannot be bigger than Minimum Deposit."
+
+msgid "FIELD_REQUIRED"
+msgstr "{0} is a required field"
+
+msgid "INVALID_VALUE"
+msgstr "The value provided for {0} is invalid."
+
+msgid "DUPLICATE_ENTRY"
+msgstr "Another {0} exists corresponding to the selected {1}."

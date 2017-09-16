@@ -1,0 +1,249 @@
+.up-logo {
+    /*background: #356abf none repeat scroll 0 0;*/
+    display: inline-block;
+    float: left;
+    position: relative;
+    width: 15%;
+    cursor: pointer;
+    height: 52px;
+    background-color: #1c84c6;
+}
+.up-start {
+    background-color: #fff;
+    color: #3c3c3c;
+    display: inline-block;
+    float: left;
+    position: relative;
+    width: 20%;
+cursor: pointer;
+border: 1px solid #c7bdbd;
+}
+.up-login {
+    background-color: #ffa900;
+    color: #fff;
+    display: inline-block;
+    float: left;
+    position: relative;
+    width: 10%;
+    cursor: pointer;
+    border: 1px solid #c7bdbd;
+    height: 52px;
+}
+
+.up-share {
+    background-color: #3b5998;
+    color: #fff;
+    display: inline-block;
+    float: left;
+    position: relative;
+    width: 10%;
+cursor: pointer;
+}
+.up-tweet {
+    background-color: #00aced;
+    color: #fff;
+    display: inline-block;
+    float: left;
+    position: relative;
+    width: 10%;
+cursor: pointer;
+}
+
+/*Modal starts here*/
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 20px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+
+    margin: auto;
+
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+/*Modal ends here*/
+
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: #3c3c3c;
+    color: white;
+    background-image: url(https://captainup.com/assets/splash/web_background.png);
+    background-position: right;
+    background-size: 720px;
+}
+
+/* Modal Body */
+.modal-body {padding: 2px 16px;}
+
+
+.modal-body p {
+    line-height: 40px;
+    text-align: center;
+}
+
+/* Modal Footer */
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #fff;
+    color: #676767;
+    margin-top: 90px;
+    text-align: center;
+}
+.modal-footer a{
+
+    color: #676767;
+    text-decoration: none;
+}
+.modal-footer a:hover{
+
+    color: black;
+    text-decoration: none;
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
+.up_heading{
+    text-align: center;
+}
+
+.fbSocial_btn {
+    padding: 5px;
+    text-align: center;
+}
+.gSocial_btn{
+    text-align: center;
+}
+.twSocial_btn{
+    text-align: center;
+    
+}
+
+.fb-btn-primary{
+ background: #596c97 none repeat scroll 0 0;
+ border: medium none #596c97;
+
+    display: inline-block;
+    width: 235px;
+    height: 51px;
+    line-height: 45px;
+    color: white;
+    text-align: center;
+    font-weight: normal;
+    font-size: 20px;
+    cursor: pointer;
+}
+.tw-btn-primary{
+background: #4099FF none repeat scroll 0 0;
+border: medium none #4099FF;
+
+display: inline-block;
+    width: 235px;
+    height: 51px;
+    line-height: 45px;
+    color: white;
+    text-align: center;
+    font-weight: normal;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 50%;
+    /*float: right;
+    margin-right: 230px;*/
+    
+}
+.g-btn-primary{
+    background: #F8746A none repeat scroll 0 0;
+    border: medium none #F8746A;
+
+    display: inline-block;
+    width: 235px;
+    height: 51px;
+    line-height: 45px;
+    color: white;
+    text-align: center;
+    font-weight: normal;
+    font-size: 20px;
+    cursor: pointer;
+    float: left;
+
+    /*margin-left: 230px;*/
+}
+
+.up-login-container {
+    background: #fff none repeat scroll 0 0;
+}
+
+/*@media screen and (min-width: 480px) {
+
+    .g-btn-primary{
+        margin-left: 132px;
+    }
+
+    .tw-btn-primary{
+        margin-left: 132px;
+    }
+}*/
+
+
+.start_button {
+    height: 28px;
+    line-height: 28px;
+    font-size: 16px;
+    background: #ffa900;
+    font-weight: bold;
+    color: #485350;
+    width: 110px;
+    margin: 10px auto;
+}
+
+

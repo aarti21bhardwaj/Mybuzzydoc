@@ -1,0 +1,51 @@
+.notification-container-danger{
+	background-color: #ebccd1;
+}
+.notification-container-danger .notification-msg-danger{
+	color: #a94442;
+}
+.notification-container-success{
+	background-color: #dff0d8;
+}
+.notification-container-success .notification-msg-success, .text-success{
+	color: #3c763d;
+}
+
+.custom-success.alert-success{
+	border-left: 6px solid #3c763d;
+}
+
+#loading-bar-container {
+	background: rgba(0, 0, 0, 0) none no-repeat scroll 0 0;
+	height: 100%;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 99999;
+}
+#loading-bar-container .sk-spinner-wave.sk-spinner {
+	font-size: 10px;
+	height: 30px;
+	margin-left: 50%;
+	margin-top: 25%;
+	text-align: center;
+	width: 50px;
+}
+.regColumns{
+	width: 80%;
+	margin: 0 auto;
+	padding: 100px 20px 20px 20px;
+}
+.ways-to-earn-page-login-title{
+		width: 90%;
+		margin: 0 auto;
+		padding: 50px 0px 0px 0px;
+}
+
+.ways-to-earn-page{
+		width: 90%;
+		margin: 0 auto;
+		padding: 50px 0px 0px 0px;
+
+}

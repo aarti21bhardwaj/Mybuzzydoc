@@ -1,0 +1,117 @@
+<div ng-controller="ReviewController as Reviews">    
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title  back-change">
+                
+                    <h5>Request A Review</h5>
+                    <div class="text-right">
+                        <button ng-click = "Reviews.refreshVendor()" class ="btn btn-primary"><i class="fa fa-refresh"></i> Refresh</button>
+                    </div>
+                </div>
+                
+
+                <div class="ibox-content" ng-show="!request.email_address.length">
+                    
+                    <h4>{{emailMessage}} <a href = "#!/editProfile">Click here</a> to update patient's profile.</h4>
+                </div>
+                <div class="ibox-content" ng-show="request.email_address.length">
+                    <div ng-show = "!vendor.vendor_locations.length">
+                        <h3>{{message}}</h3>
+                        <a href="{{addLocation}}" id="newVendor" target="_blank" class="btn btn-success">Add New Vendor Location</a>
+                    </div>
+                    <br>
+                    <div ng-show = "vendor.review_settings.length == 0">
+                        <h3>Points to be awarded are not set.</h3>
+                        <a href="{{addReviewSettings}}" target="_blank" class="btn btn-success">Set Points</a>
+                    </div>
+                    <div  ng-show = "vendor.vendor_locations.length && vendor.review_settings.length != 0">
+                        <h4 align= "center">
+                            Request a review from patients for the following locations. Select the "Send Request" button next to the office you are currently at.
+                        </h4>
+                    </div>
+
+                </div>
+            </div>
+            <div class="faq-item" ng-repeat = "location in vendor.vendor_locations" ng-show = "vendor.vendor_locations.length && request.email_address.length && vendor.review_settings.length != 0">
+                <div class="row">
+                    <div class="col-md-1">    
+                        <i class="fa fa-thumb-tack"></i>
+                    </div>
+                    <div class="col-md-3">
+                        <p class="faq-question">{{location.address}}</p>
+                    </div>
+                    <div class="col-md-2 text-center">    
+                        <button id="requestReview{{$index}}" type="button" ng-click = "Reviews.requestReview(location.id)" class="btn btn-w-m btn-primary" ng-disabled="!request.email_address.length || reqBtn">Send Request</button>           
+                    </div>
+                    <div class="col-md-2" ng-if="patientReviewInfo[location.id] == false" style="word-wrap: break-word;">
+                        <strong>No Review has been requested for this location</strong>
+                    </div>
+                    <div class="col-md-2" ng-if="patientReviewInfo[location.id] != false" style="word-wrap: break-word;">
+                        <div class="row">
+                            <strong>Request Date: </strong>{{patientReviewInfo[location.id].created}}
+                            <button class="btn-xs btn-success" title="Show Review" ng-if="patientReviewInfo[location.id].review != false && patientReviewInfo[location.id].rating != false" ng-click="Reviews.toggleModal(location.id)"><i class="fa fa-eye fa-fw"></i></button>
+                        </div>                        
+
+                    </div>
+                    <div class="col-md-4"  ng-show="emptySettings[$index].length">
+                            <button type="button" class="btn btn-danger col-sm-1">
+                                <i class="fa fa-exclamation"></i>
+                            </button>
+                            <div class = "col-sm-11"> 
+                            <p>The following links are not set for this location:</p>    
+                            <ul><li ng-repeat = "es in emptySettings[$index]">{{es}} </li></ul> 
+                            <p><a href="{{editLocation}}{{location.id}}" id="newVendor" target="_blank">Click Here</a> to add the URLs or proceed with sending the request.</p>  
+                            </div>
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal starts Here-->
+    <div class="modal inmodal fade" id="reviewModal" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title">Review</h4>
+                    <small class="font-bold">This is the last review and rating posted by the patient</small>
+                </div>
+                <div class="modal-body">
+                    
+                    <div class="row text-center">
+                        <button class="btn btn-sm btn-danger fa fa-google-plus" ng-if="patientReviewInfo[currentLocationId].notified.gplus" ng-disabled="patientReviewInfo[currentLocationId].review_awards.gplus || awrdPts" ng-click="Reviews.awardPoints(patientReviewInfo[currentLocationId].id, 'gplus')"></button>
+                        
+                        <button class="btn btn-xs" ng-if="patientReviewInfo[currentLocationId].notified.yelp" ng-disabled="patientReviewInfo[currentLocationId].review_awards.yelp || awrdPts" ng-click="Reviews.awardPoints(patientReviewInfo[currentLocationId].id, 'yelp')"><img src="{{hostUrl}}img/yelp_logo.ico" class="fa fa-fw fa-lg" alt="yelp logo"></button>
+                        
+                        <button class="btn btn-xs" ng-if="patientReviewInfo[currentLocationId].notified.ratemd" ng-disabled="patientReviewInfo[currentLocationId].review_awards.ratemd || awrdPts" ng-click="Reviews.awardPoints(patientReviewInfo[currentLocationId].id, 'ratemd')"><img src="{{hostUrl}}img/ratemd_logo.ico" class="fa fa-fw fa-lg" alt="ratemd logo"></button>
+
+                        <button class="btn btn-sm btn-success fa fa-yahoo" ng-if="patientReviewInfo[currentLocationId].notified.yahoo" ng-disabled="patientReviewInfo[currentLocationId].review_awards.yahoo || awrdPts" ng-click="Reviews.awardPoints(patientReviewInfo[currentLocationId].id, 'yahoo')"></button>
+                        
+                        <button class="btn btn-xs" ng-if="patientReviewInfo[currentLocationId].notified.healthgrades" ng-disabled="patientReviewInfo[currentLocationId].review_awards.healthgrades || awrdPts" ng-click="Reviews.awardPoints(patientReviewInfo[currentLocationId].id, 'healthgrades')"><img src="{{hostUrl}}img/healthgrades_logo.ico" class="fa fa-fw fa-lg" alt="healthgrades logo"></button>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <strong>Request Date: </strong>{{patientReviewInfo[currentLocationId].created}}
+                    </div>
+                    <div class="row" ng-if="patientReviewInfo[currentLocationId].rating != false">
+                        <strong>Rating: </strong>{{patientReviewInfo[currentLocationId].rating}}
+                    </div>
+                    <div class="row" ng-if="patientReviewInfo[currentLocationId].review != false">
+                        <strong>Review: </strong>{{patientReviewInfo[currentLocationId].review}}
+                    </div>                        
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Ends Here -->
+</div>

@@ -1,0 +1,118 @@
+<div class="regColumns animated fadeInDown">
+  <div class="row">
+
+    <div class="col-md-6 m-t-lg text-center">
+
+
+      <h2 class="font-bold m-t-lg text-muted">{{vendorDetails.welcome_message ? vendorDetails.welcome_message :' Welcome To Our Patient Portal'}}</h2>
+
+
+      <div class="profile-img-container m-t-lg">
+        <div class="m-b-md m-t-lg">
+          <img style="width:150px; height:150px;" alt="image" class="" ng-src={{vendorDetails.image_url}}>
+        </div>
+        <h3>{{ vendorDetails.org_name }}</h3>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="ibox-content">
+        <form class="form-horizontal" name="form" role="form" ng-submit="vm.register()" novalidate>
+        <div class="form-group" ng-class="{ 'has-error': (form.card_number.$dirty && form.card_number.$invalid)}" ng-if="vendorSettings['Cards'] == 1">
+            <label for="name" class="col-lg-3 control-label">Card Number</label>
+            <div class="col-lg-9">
+              <input placeholder="Enter Card Number: 2125551234" type="text" name="card_number" id="card_number" class="form-control" ng-model="vm.card_number" data-maxlength = "16" ng-required="true" />
+
+              <span ng-show="(form.card_number.$dirty && form.card_number.$invalid ) || (form.card_number.$touched && form.card_number.$pristine && form.card_number.$invalid && form.card_number.$error.required)" class="help-block">Card Number is required.</span>
+
+            </div>
+          </div>
+          <div class="form-group" ng-class="{ 'has-error': (form.first_name.$dirty && form.first_name.$invalid ) || (form.first_name.$touched && form.first_name.$invalid && form.first_name.$pristine && form.first_name.$error.required)}">
+            <label for="name" class="col-lg-3 control-label">First Name</label>
+            <div class="col-lg-9">
+              <input placeholder="Enter First Name" type="text" name="first_name" id="first_name" class="form-control" ng-model="vm.first_name" ng-required="true"/>
+              <span ng-show="(form.first_name.$dirty && form.first_name.$invalid ) || (form.first_name.$touched && form.first_name.$pristine && form.first_name.$invalid && form.first_name.$error.required)" class="help-block">First Name is required.</span>
+            </div>
+          </div>
+
+          <div class="form-group" ng-class="{ 'has-error': (form.last_name.$dirty && form.last_name.$invalid ) || (form.last_name.$touched && form.last_name.$invalid && form.last_name.$pristine && form.last_name.$error.required)}">
+            <label for="name" class="col-lg-3 control-label">Last Name</label>
+            <div class="col-lg-9">
+              <input placeholder="Enter Last Name" type="text" name="last_name" id="last_name" class="form-control" ng-model="vm.last_name" ng-required="true"/>
+              <span ng-show="(form.last_name.$dirty && form.last_name.$invalid ) || (form.last_name.$touched && form.last_name.$pristine && form.last_name.$invalid && form.last_name.$error.required)" class="help-block">Last Name is required.</span>
+            </div>
+          </div>
+          <div class="form-group" ng-show="!vm.noEmail" ng-class="{ 'has-error': (form.email.$dirty && form.email.$invalid ) || (form.email.$touched && form.email.$invalid && form.email.$pristine && form.email.$error.required)}">
+            <label for="name" class="col-lg-3 control-label">Email</label>
+            <div class="col-lg-9">
+              <input placeholder="Enter Email" type="email" name="email" id="email" class="form-control" ng-model="vm.email" ng-required="!vm.noEmail"/>
+              <span ng-show="form.email.$dirty && form.email.$invalid " class="help-block">Enter valid email.</span>
+              <span ng-show="(form.email.$dirty && form.email.$invalid ) || (form.email.$touched && form.email.$pristine && form.email.$invalid && form.email.$error.required)" class="help-block">Email is required.</span>
+            </div>
+          </div>
+          <div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$invalid }">
+            <div class="col-lg-3">
+            </div>
+            <div class="col-lg-9">
+              <label for="name" class="control-label">User does not have email id</label>
+              <input type="checkbox" class="m-l-sm" ng-model="vm.noEmail">
+            </div>
+          </div>
+          <div class="form-group" ng-show="vm.noEmail" ng-class="{ 'has-error': (form.username.$dirty && form.username.$invalid ) || (form.username.$touched && form.username.$invalid && form.username.$pristine && form.username.$error.required)}">
+            <label for="name" class="col-lg-3 control-label">UserName</label>
+            <div class="col-lg-9">
+              <input placeholder="Enter Username" type="text" name="username" id="username" class="form-control" ng-model="vm.username" ng-required="vm.noEmail"/>
+              <span ng-show="(form.username.$dirty && form.username.$invalid ) || (form.username.$touched && form.username.$pristine && form.username.$invalid && form.username.$error.required)" class="help-block">Username is required.</span>
+            </div>
+          </div>
+          <div class="form-group" ng-show="vm.noEmail" ng-class="{ 'has-error': (form.guardian_email.$dirty && form.guardian_email.$invalid ) || (form.guardian_email.$touched && form.guardian_email.$invalid && form.guardian_email.$pristine && form.guardian_email.$error.required)}">
+            <label for="guardian_email" class="col-lg-3 control-label">Guardian's Email</label>
+            <div class="col-lg-9">
+              <input placeholder="Enter Name" type="text" name="guardian_email" id="guardian_email" class="form-control" ng-model="vm.guardian_email" ng-required="vm.noEmail"/>
+              <span ng-show="(form.guardian_email.$dirty && form.guardian_email.$invalid ) || (form.guardian_email.$touched && form.guardian_email.$pristine && form.guardian_email.$invalid && form.guardian_email.$error.required)" class="help-block">Guardian's Email is required.</span>
+            </div>
+          </div>
+          <input type="text" name="fb_identifier" id="fb_id" class="form-control" ng-model="vm.fb_identifier" style="display: none"/>
+          <div class="form-group" ng-show="vm.noEmail" ng-class="{ 'has-error': (form.phone.$dirty && form.phone.$invalid ) || (form.phone.$touched && form.phone.$invalid && form.phone.$pristine && form.phone.$error.required)}">
+            <label for="name" class="col-lg-3 control-label">Phone</label>
+            <div class="col-lg-9">
+              <input placeholder="Enter Phone Number: 2125551234" type="tel" name="phone" id="phone" class="form-control" ng-model="vm.phone" data-minlength = "10" ng-required='vm.noEmail'/>
+              <span ng-show="form.phone.$error.minlength" class="help-block">Phone is too short.</span>
+              <span ng-show="vm.noEmail && (form.phone.$dirty && form.phone.$invalid ) || (form.phone.$touched && form.phone.$pristine && form.phone.$invalid && form.phone.$error.required)" class="help-block">Phone number is required.</span>
+              <span ng-show="form.phone.$dirty && form.phone.$invalid" class="help-block">Enter valid phone number.</span>
+            </div>
+          </div>
+          <div class="form-group" ng-class="{ 'has-error': (form.password.$dirty && form.password.$invalid ) || (form.password.$touched && form.password.$pristine && form.password.$error.required)}">
+            <label for="name" class="col-lg-3 control-label">Password</label>
+            <div class="col-lg-9">
+              <input placeholder="Enter Password" type="password" name="password" id="password" class="form-control" ng-model="vm.password" data-minlength = "8" ng-required="true"/>
+              <span ng-show="form.password.$error.minlength" class="help-block">Password is too short.</span>
+              <span ng-show="(form.password.$dirty && form.password.$invalid ) || (form.password.$touched && form.password.$invalid && form.password.$pristine && form.password.$error.required)" class="help-block">Password is required.</span>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <div class="col-lg-12 text-center">
+              <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-success">Register</button>
+              <p class="text-center m-t-sm">Or</p>
+            </div>
+          </div>
+        </form>
+        <div class="form-group">
+          <div class="col-lg-12 text-center">
+            <div class="form-actions">
+              <a ng-click="vm.fbSignUp()" class="btn btn-success btn-social btn-facebook btn-md m-r-sm" style="background-color: #3b5998;">
+                <span class="fa fa-facebook"></span> Sign Up with Facebook</a>
+                <a class="btn btn-success btn-md m-l-sm" ui-sref="home">Back To login Page</a>
+              </div>
+
+            </div>
+          </form>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-md-12 m-t-md text-center">
+            Copyright <strong>Buzzydoc</strong><small>© 2016-2017</small>
+          </div>
+        </div>
+      </div>

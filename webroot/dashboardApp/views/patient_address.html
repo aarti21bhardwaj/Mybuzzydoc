@@ -1,0 +1,41 @@
+<div ng-controller="PatientAddressController as aCtrl">
+  <div class="ibox float-e-margins">
+    <div class="ibox-title col-sm-12">
+      <h5 class="col-sm-6">{{pdata.name}}'s Address</h5>
+    </div>
+    <div class="ibox-content">
+
+      <form class="form-horizontal" name="patientAddress" data-toggle= "validator" ng-submit = "aCtrl.saveAddress()">
+        <div class="form-group"><label class="col-lg-2 control-label">Address</label>
+          <div class="col-lg-10"><input type="text" placeholder="Address" class="form-control" required ng-model = "addressRequest.address">
+          </div>
+        </div>
+        <div class="form-group"><label class="col-lg-2 control-label">City</label>
+          <div class="col-lg-10"><input type="text" placeholder="City" class="form-control" required ng-model = "addressRequest.city">
+          </div>
+        </div>
+        <div class="form-group"><label class="col-lg-2 control-label">State</label>
+          <div class="col-lg-10"><select class="form-control m-b" ng-model="addressRequest.state" required ng-options="state.abbreviation as state.name for state in states"><option value="">--Please Select--</option></select>
+          </div>
+        </div>
+        <div class="form-group"><label class="col-lg-2 control-label">Country</label>
+          <div class="col-lg-10"><input type="text" placeholder="Country" class="form-control" required ng-disabled="true" ng-model = "addressRequest.country" ng-init = "addressRequest.country = 'US'"></div>
+        </div>
+        <div class="form-group"><label class="col-lg-2 control-label">Phone</label>
+          <div class="col-lg-10"><input type="tel" placeholder="Phone" data-minlength="10" class="form-control" required ng-model = "addressRequest.phone" ng-pattern="numRegex" maxlength="15">
+          </div>
+        </div>
+        <div class="form-group"><label class="col-lg-2 control-label">Zipcode</label>
+          <div class="col-lg-10"><input type="text" placeholder="Zipcode" data-minlength="3" class="form-control" required ng-model = "addressRequest.zipcode" ng-pattern="numRegex" maxlength="6">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-offset-2 col-lg-2">
+            <button class="btn btn-success" type="submit" ng-disabled = "patientAddress.$invalid || !saveBtn">Save Changes</button>
+          </div>
+        </div>
+      </form>
+        <br>
+    </div>
+  </div>
+</div>

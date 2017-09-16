@@ -1,0 +1,64 @@
+<toaster-container></toaster-container>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>My Activities</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a ui-sref="user.dashboard">Home</a>
+            </li>
+            <li class="active">
+                <strong>My Activities</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInRight">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+               <div class="ibox-content inspinia-timeline">
+                <div class="alert alert-info fade in" ng-show="!userData.activities.length">
+                    <strong>No activities yet!</strong>
+                </div>
+                <div class="timeline-item" ng-repeat="activity in userData.activities">
+                    <div class="row">
+
+                        <div class="col-xs-3 date">
+                            <i class="fa fa-briefcase" ng-show="activity.action == 'reward'"></i>
+                            <i class="fa fa-usd" ng-show="activity.action == 'redeem'"></i>
+                            <i class="fa fa-diamond" ng-show="activity.action == 'instant_redeem'"></i>
+                            <i class="fa fa-undo" ng-show="activity.action == 'reverse'"></i>
+                            {{activity.created | date:'hh:mm a'}}
+                            <br/>
+                            <small class="text-navy"><time-ago from-time='{{activity.created}}'></time-ago></small>
+                        </div>
+                        <div class="col-xs-7 content no-top-border">
+                            
+                            <p ng-show="activity.action == 'reward'"><strong>You got {{activity.reward_method.label}}s</strong></p>
+                            <p ng-show="activity.action == 'reverse'"><strong>Points reverted {{activity.reward_method.label}}s</strong></p>
+                            <p class="" ng-show="activity.action == 'reward'">You have <span class="badge badge-success ng-binding">{{activity.points}}</span>&nbsp;{{activity.reward_method.label}} points from <strong>{{activity.vendor.name}}.</strong></p>
+                            <p class="" ng-show="activity.action == 'reverse'"><strong>{{activity.vendor.name}}</strong> reverted <span class="badge badge-success ng-binding">{{activity.points}}</span> points of your {{activity.reward_method.label}}.</p>
+                            <p ng-show="activity.action == 'redeem'"><strong>You Redeemed {{activity.reward_method.label}}</p></strong>
+                            <p class="" ng-show="activity.action == 'redeem' && activity.reward_method.name=='wallet_credit'" >You redeemed <span class="badge badge-primary ng-binding">{{activity.points}}</span> &nbsp;wallet caredit points&nbsp;  using <strong>{{activity.service.label}}.</strong></p>
+
+                            <p class="" ng-show="activity.action == 'redeem' && activity.reward_method.name=='store_credit'" >You redeemed <span class="badge badge-info ng-binding">{{activity.points}}</span> &nbsp;store credit points&nbsp;awarded by <strong>{{activity.vendor.name}}.</strong></p>
+
+                            <p ng-show="activity.action == 'instant_redeem' && activity.service.name!='in_house'"><strong>You got a Gift Coupon</strong></p>
+                            <p ng-show="activity.action == 'instant_redeem' && activity.service.name=='in_house'"><strong>You got a Gift</strong></p>
+                            <p class="" ng-show="activity.action == 'instant_redeem' && activity.service.name=='in_house'" >You got a <strong>{{activity.user_instant_redemption.description}}</strong> as gift worth <span class="badge badge-success ng-binding">${{activity.user_instant_redemption.amount}}</span> &nbsp; by <strong>{{activity.vendor.name}}.</strong></p>
+
+                            <p class="" ng-show="activity.action == 'instant_redeem' && activity.service.name!='in_house'" >You got a gift coupon of <strong>{{activity.service.label}}</strong>&nbsp;worth&nbsp;<span class="badge badge-success ng-binding"> ${{activity.user_instant_redemption.amount}}</span> &nbsp; by <strong>{{activity.vendor.name}}.</strong></p>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>

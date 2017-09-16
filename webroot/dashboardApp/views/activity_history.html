@@ -1,0 +1,525 @@
+<br>
+<div class="tabs-container" ng-controller="PatientHistoryController as History">
+    <div>
+        <div>
+            <ul class="nav nav-tabs">
+                <li ng-class="{'active':tab1}" ng-init="tab1=true"><a data-toggle="tab" ng-click="tabSwitch(1)"> Summary</a></li>
+                <li ng-class="{'active':tab2}" ng-init="tab1=true"><a data-toggle="tab" ng-click="tabSwitch(2)" >Reviews &amp; Ratings</a></li>
+                <li ng-class="{'active':tab3}" ng-if = "History.auth('promotions')"><a data-toggle="tab" ng-click="tabSwitch(3)" >Marketing Promotions</a></li>
+                <li ng-class="{'active':tab4}" ng-if = "History.auth('instantRedeem') || History.auth('redeemWallet')|| History.auth('inhouseredemption') "><a data-toggle="tab" ng-click="tabSwitch(4)" >Redemptions</a></li>
+                <li ng-class="{'active':tab5}" ng-show="History.auth('tier')" ><a data-toggle="tab" ng-click="tabSwitch(5)" >Tiers</a></li>
+                <li ng-class="{'active':tab6}" ng-if = "History.auth('compliancesurvey')"><a data-toggle="tab" ng-click="tabSwitch(6)" >Compliance Survey</a></li>
+                <li ng-class="{'active':tab7}" ng-if = "History.auth('manualpoints')"><a data-toggle="tab" ng-click="tabSwitch(7)" >Manual Points</a></li>
+                <li ng-class="{'active':tab8}" ng-show="History.auth('giftCoupons')" ><a data-toggle="tab" ng-click="tabSwitch(8)" >Gift Coupons</a></li>
+                <li ng-class="{'active':tab9}" ng-if = "History.auth('referrals')"><a data-toggle="tab" ng-click="tabSwitch(9)" >Referrals</a></li>
+                <li ng-class="{'active':tab10}" ng-if = "History.auth('referralTiers')"><a data-toggle="tab" ng-click="tabSwitch(10)" >Referrals Tiers</a></li>
+
+            </ul>
+            <div class="tab-content ">
+                <div id="tab-1" ng-class="{'active':tab1, 'tab-pane' : true}">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-content">
+                                        <a href="#!/oldBuzzyDocHistory" ng-if = "showOldHistory" class="btn btn-success">Old BuzzyDoc History</a>
+                                        <div class="table-responsive">
+                                            <table datatable = "ng" class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th >S.No.</th>
+                                                        <th >Points</th>
+                                                        <th >Reason</th>
+                                                        <th >Date &amp; Time</th>
+                                                        <th  ng-show="isRollbackAvailable"> Actions </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="gradeA odd" role="row" ng-repeat= "hist in phistory.summary">
+                                                        <td class="sorting_1" >{{$index+1}}</td>
+                                                        <td>{{hist.points}}</td>
+                                                        <td>{{hist.reason}}</td>
+                                                        <td class="center">{{hist.created}}</td>
+                                                        <td class="text-center"  ng-show="isRollbackAvailable"><a ng-show="hist.type != 'gift_coupon_award'" ng-click ="History.deleteConfirmation(hist.id, hist.reason, hist.type)" class="label label-danger text-center">Delete</a></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-2" ng-class="{'active':tab2, 'tab-pane': true}">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-content">
+                                        <div class="table-responsive">
+                                            <table datatable = "ng" class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S.No.</th>
+                                                        <th>Points</th>
+                                                        <th>Reason</th>
+                                                        <th>Date &amp; Time</th>
+                                                        <th class="text-center"  ng-show="isRollbackAvailable"> Actions </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="gradeA odd" role="row" ng-repeat= "hist in phistory.review_awards">
+                                                        <td class="sorting_1" >{{$index+1}}</td>
+                                                        <td>{{hist.points}}</td>
+                                                        <td>{{hist.review_type.name}}</td>
+                                                        <td class="center">{{hist.modified}}</td>
+                                                        <td class="text-center"  ng-show="isRollbackAvailable"><a ng-click ="History.deleteConfirmation(hist.id, 'Review Award', 'review_award')" class="label label-danger text-center">Delete</a></td>
+                                                    </tr>
+                                                </tbody>                                       
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-3" ng-class="{'active':tab3, 'tab-pane': true}">
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-lg-12">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-content">
+
+                                        <div class="table-responsive">
+                                            <table datatable = "ng" class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S.No.</th>
+                                                        <th>Points</th>
+                                                        <th>Multiplier</th>
+                                                        <th>Reason</th>
+                                                        <th>Date &amp; Time</th>
+                                                        <th class="text-center"  ng-show="isRollbackAvailable"> Actions </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="gradeA odd" role="row" ng-repeat= "hist in phistory.promotions">
+                                                        <td class="sorting_1" >{{$index+1}}</td>
+                                                        <td>{{hist.points}}</td>
+                                                        <td>{{hist.multiplier}}</td>
+                                                        <td>{{hist.description}}</td>
+                                                        <td class="center">{{hist.created}}</td>
+                                                        <td class="text-center"  ng-show="isRollbackAvailable"><a ng-click ="History.deleteConfirmation(hist.id, 'Promotion Award', 'promotion_award')" class="label label-danger text-center">Delete</a></td>  
+                                                    </tr>
+                                                </tbody>                                        
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-4" ng-class="{'active':tab4, 'tab-pane': true}">
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-lg-12">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-content">
+
+                                        <div class="table-responsive">
+                                            <table datatable = "ng" class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S.No.</th>
+                                                        <th>Points/Amount</th>
+                                                        <th>Reason</th>
+                                                        <th>Date &amp; Time</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="gradeA odd" role="row" ng-repeat= "hist in phistory.redemptions">
+                                                        <td class="sorting_1" >{{$index+1}}</td>
+                                                        <td>{{hist.legacy_redemption_amounts[0].amount ? (hist.legacy_redemption_amounts[0].amount | currency : '$' : 2) : (hist.legacy_reward.points ? hist.legacy_reward.points + " Points" : (hist.legacy_reward.amount | currency : '$' : 2))}}</td>
+                                                        <td>{{hist.legacy_reward.name}}</td>
+                                                        <td class="center">{{hist.created}}</td>
+                                                    </tr>
+                                                </tbody>                                        
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-5" ng-class="{'active':tab5, 'tab-pane': true}">
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-lg-12">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-content">
+
+                                        <div class="table-responsive">
+                                            <table datatable = "ng" class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S.No.</th>
+                                                        <th>Points</th>
+                                                        <th>Reason</th>
+                                                        <th>Date &amp; Time</th>
+                                                        <th class="text-center"  ng-show="isRollbackAvailable"> Actions </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="gradeA odd" role="row" ng-repeat= "hist in phistory.tiers">
+                                                        <td class="sorting_1" >{{$index+1}}</td>
+                                                        <td>{{hist.points}}</td>
+                                                        <td>{{hist.tier.name}}</td>
+                                                        <td class="center">{{hist.created}}</td>
+                                                        <td class="text-center"  ng-show="isRollbackAvailable"><a ng-click ="History.deleteConfirmation(hist.id, 'Tier Award', 'tier_award')" class="label label-danger text-center">Delete</a></td>
+                                                    </tr>
+                                                </tbody>                                        
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-6" ng-class="{'active':tab6, 'tab-pane': true}">
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-lg-12">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-content">
+
+                                        <div class="table-responsive">
+                                            <table datatable = "ng" class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S.No.</th>
+                                                        <th>Points</th>
+                                                        <th>Date &amp; Time</th>
+                                                        <th class="text-center" ng-show="isRollbackAvailable"> Actions </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="gradeA odd" role="row" ng-repeat= "hist in phistory.compliance_survey_awards">
+                                                        <td class="sorting_1">{{$index+1}}</td>
+                                                        <td>{{hist.points}}</td>
+                                                        <td class="center">{{hist.created}}</td>
+                                                        <td class="text-center" ng-show="isRollbackAvailable"><a ng-click ="History.deleteConfirmation(hist.id, 'Survey Award', 'survey_award')" class="label label-danger text-center">Delete</a></td>
+
+                                                    </tr>
+                                                </tbody>                                        
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-7" ng-class="{'active':tab7, 'tab-pane': true}" >
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-content">
+                                        <div class="table-responsive">
+                                            <table datatable = "ng" class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S.No.</th>
+                                                        <th>Points</th>
+                                                        <th>Reason</th>
+                                                        <th>Date &amp; Time</th>
+                                                        <th class="text-center" ng-show="isRollbackAvailable"> Actions </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="gradeA odd" role="row" ng-repeat= "hist in phistory.manual_awards">
+                                                        <td class="sorting_1" >{{$index+1}}</td>
+                                                        <td>{{hist.points}}</td>
+                                                        <td>{{hist.description}}</td>
+                                                        <td class="center">{{hist.created}}</td>
+                                                        <td class="text-center" ng-show="isRollbackAvailable"><a ng-click ="History.deleteConfirmation(hist.id, 'Manual Award', 'manual_award')" class="label label-danger text-center">Delete</a></td>
+                                                    </tr>
+                                                </tbody>                                       
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-8" ng-class="{'active':tab8, 'tab-pane': true}" >
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-lg-12">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-content">
+                                        <div class="table-responsive">
+                                            <table datatable = "ng" class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S.No.</th>
+                                                        <th>Points</th>
+                                                        <th>Reason</th>
+                                                        <th>Status</th>
+                                                        <th>Date &amp; Time</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="gradeA odd" role="row" ng-repeat= "hist in phistory.gift_coupon_awards">
+                                                        <td class="sorting_1" >{{$index+1}}</td>
+                                                        <td>{{hist.gift_coupon.points}}</td>
+                                                        <td>{{hist.gift_coupon.description}}</td>
+                                                        <td>{{hist.gift_coupon_redemptions[0].redemption_status ? "Redeemed" : "Issued"}}</td>
+                                                        <td class="center">{{hist.modified}}</td>
+                                                        
+                                                    </tr>
+                                                </tbody>                                       
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-9" ng-class="{'active':tab9, 'tab-pane' : true}">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-content">
+                                        <div class="text-right">
+                                            <button ng-click = "History.refresh()" class ="btn btn-primary"><i class="fa fa-refresh"></i> Refresh</button>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table datatable = "ng" class="table table-striped table-bordered table-hover">
+                                                <thead>
+
+                                                    <tr>
+                                                        <th>First Name</th>
+                                                        <th>Last Name</th>
+                                                        <th>Email</th>
+                                                        <th>Phone</th>
+                                                        <th>Points</th>
+                                                        <th>Status</th>
+                                                        <th>Level</th>
+                                                        <th>Date &amp; Time</th>
+                                                        <th class="text-center" ng-show="isRollbackAvailable"> Actions </th>
+                                                    </tr>
+
+                                                </thead>
+
+                                                <tbody>
+
+                                                    <tr ng-repeat= "referral in referrals" ng-if="referrals != false">
+                                                         <td>
+                                                            <div ng-if="referral.referral_lead != null">
+                                                                {{referral.referral_lead.first_name}}
+                                                            </div>
+                                                            <div ng-if="referral.referral_lead == null">
+                                                                {{referral.first_name}}   
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div ng-if="referral.referral_lead != null">
+                                                                {{referral.referral_lead.last_name}}
+                                                            </div>
+                                                            <div ng-if="referral.referral_lead == null">
+                                                                {{referral.last_name}}   
+                                                            </div>
+                                                        </td>
+                                                            
+                                                         <td>
+                                                            <div ng-if="referral.referral_lead != null">
+                                                                {{referral.referral_lead.email}}
+                                                            </div>
+                                                            <div ng-if="referral.referral_lead == null">
+                                                                {{referral.refer_to}}   
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div ng-if="referral.referral_lead != null">
+                                                                {{referral.referral_lead.phone}}
+                                                            </div>
+                                                            <div ng-if="referral.referral_lead == null">
+                                                                {{referral.phone}}   
+                                                            </div>
+                                                        </td>
+                                                        
+                                                        <td>
+                                                            <select 
+                                                                    ng-change="History.getNewPatientId(referral.referral_lead.id)" 
+                                                                    ng-options="lev.id as lev.referral_level_name for lev in referralLevels| filter:lev.status != 0" 
+                                                                    ng-model="referralSettings[referral.referral_lead.id]" 
+                                                                    ng-if="referral.referral_lead != null && referral.referral_lead.referral_status_id != 2 && referralLevels.length > 1"
+                                                                    ng-disabled="awardReferralButton"
+                                                            >
+
+                                                                <option value="">--Select Level--</option>
+                                                            </select>
+                                                            <div ng-if="referral.referral_lead != null && referralLevels.length == 1 && referral.referral_lead.referral_status_id != 2">
+                                                                No referral levels are set
+                                                            </div>
+                                                            <div ng-if="referral.referral_lead == null">
+                                                                Referral hasn't responded yet.
+                                                            </div>
+                                                            <div ng-if="referral.referral_lead != null && referral.referral_lead.referral_status_id == 2">
+                                                                {{referralAwards[referral.id].points}}
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div ng-if="referral.referral_lead != null">
+                                                                {{referral.referral_lead.referral_status.status}}
+                                                            </div>
+                                                            <div ng-if="referral.referral_lead == null">
+                                                                Pending   
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                             <div ng-if="referral.referral_lead != null && referralLevels.length == 1 && referral.referral_lead.referral_status_id != 2">
+                                                                None
+                                                            </div>
+                                                            <div ng-if="referral.referral_lead != null && referral.referral_lead.referral_status_id != 2">
+                                                                None
+                                                            </div>
+                                                            <div ng-if="referral.referral_lead == null">
+                                                                None
+                                                            </div>
+                                                            <div ng-if="referral.referral_lead != null && referral.referral_lead.referral_status_id == 2 && referralAwards[referral.id].referral.referral_lead.vendor_referral_setting != null">
+                                                                {{referralAwards[referral.id].referral.referral_lead.vendor_referral_setting.referral_level_name}}
+                                                            </div>
+                                                            <div ng-if="referral.referral_lead != null && referral.referral_lead.referral_status_id == 2 && referralAwards[referral.id].referral.referral_lead.vendor_referral_setting == null">
+                                                                Level Not Found
+                                                            </div>
+
+                                                            
+                                                        </td>
+                                                        <td>{{referral.created}}</td>
+                                                        <td class="text-center" ><a ng-if="referral.referral_lead.referral_status_id != 2" ng-click ="History.editReferral(referral.referral_lead.id)" class="label label-danger text-center">Edit</a></td>
+
+
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-10" ng-class="{'active':tab10, 'tab-pane': true}">
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-lg-12">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-content">
+
+                                        <div class="table-responsive">
+                                            <table datatable = "ng" class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S.No.</th>
+                                                        <th>Points</th>
+                                                        <th>Reason</th>
+                                                        <th>Date &amp; Time</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="gradeA odd" role="row" ng-repeat= "hist in phistory.referral_tier_awards">
+                                                        <td class="sorting_1" >{{$index+1}}</td>
+                                                        <td>{{hist.points}}</td>
+                                                        <td>{{hist.referral_tier.name}}</td>
+                                                        <td class="center">{{hist.created}}</td>
+                                                    </tr>
+                                                </tbody>                                        
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal starts Here-->
+    <div class="modal inmodal fade" id="referralModal" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title">Search Patient</h4>
+                    <small class="font-bold">Search for the referred patient.</small>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <form name="searchForm" ng-submit="History.search()" class = "form-inline">
+                            <div class="search-input">
+                                <div class="panel panel-success">
+                                    <div class="panel-heading">
+    
+                                    </div>
+                                    <div class="panel-body text-center">
+                                        <div class="input-group">
+                                            <input type="text" id="search-patient-input" class="form-control input col-lg-10" placeholder="Enter phone number or email or card number" ng-required ng-model="searchQuery">
+                                            <div class="input-group-btn">
+                                                <button type="submit" class="btn  btn-success">
+                                                    Search
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-show="showSearchCount" class="alert alert-success">
+                                {{searchResults.length}} results found
+                            </div>
+                            <table class="table table-hover table-mail">
+                                <tbody>
+                                    <tr ng-repeat="user in searchResults" ng-disabled="user.id == pat.id" ng-click="History.awardReferralPoints(user.id)" data-dismiss="modal">
+                                        <td class="mail-ontact">{{user.name}}
+                                        <span class="label-primary pull-right" >Registered</span></td>
+
+                                        <td class="mail-subject">{{ user.email || user.guardian_email}}</td>
+                                        <td class="">{{user.phone}}</td>
+                                    <!-- <td class="text-right mail-date">{{SearchCtrl.cards(user.user_card)}}</td> -->
+                                    </tr>
+                                </tbody>
+                            </table>         
+        <!-- /.col-lg-6 -->
+                        </form>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

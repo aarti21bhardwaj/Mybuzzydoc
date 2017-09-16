@@ -1,0 +1,38 @@
+<toaster-container></toaster-container>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>Email Settings</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a ui-sref="user.dashboard">Home</a>
+      </li>
+      <li class="active">
+        <strong>Email Settings</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="row">
+<div class="ibox-title">
+  <h5>Here is the list of emails that are subscribed for you. If you want, you can unsubscribe them.</h5>
+</div>
+   <div class="ibox-content">
+      <form class="form-horizontal" name="unsubscribeEvent" data-toggle= "validator" ng-submit = "vm.unsubscribeEvent()">
+        <div class="form-group" ng-repeat="event in vendorDetails.events">
+          <div class="col-lg-8">{{event.name}}</div>
+            <div class="col-lg-2">
+                <input type="checkbox" class="js-switch" ui-switch ng-model="emailRequest.events[event.id]" ng-init="emailRequest.events[event.id] = true"><br>
+            </div>
+        </div>
+       <!--  <div class="col-lg-2">
+                <input type="checkbox" class="js-switch" ng-model="emailRequest.events[event.id]" ng-init="emailRequest.events[event.id] = true" id = 'js-switch{{event.id}}'><br>
+            </div> -->
+        <div class="form-group">
+            <div class="col-lg-offset-4 col-lg-6">
+              <button class="btn btn-success" type="submit">Save</button>
+            </div>
+        </div>
+      </form>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<nav class="navbar-default navbar-static-side" role="navigation" ng-controller="DashboardController">
+    <div class="sidebar-collapse">
+        <ul side-navigation class="nav metismenu" id="side-menu">
+            <li class="nav-header text-center">
+
+                <div class="profile-element" uib-dropdown>
+                    <a uib-dropdown-toggle href>
+                        <span class="clear">
+                            <span class="block m-t-xs"> 
+                                <strong class="font-bold">
+                                  <h2>{{ userData.name }}<b class="caret"></b></h2>
+                              </strong>
+                          </span>
+                      </span>
+                  </a>
+                  <ul uib-dropdown-menu class="animated fadeInRight m-t-xs">
+                    <li><a ui-sref="user.profile">Profile</a></li>
+                    <li><a ui-sref="user.activities">Activities</a></li>
+                    <li><a ui-sref="user.rewards">My Rewards</a></li>
+                    <li class="divider"></li>
+                    <li><a ng-click="vm.logout()">Logout</a></li>
+                </ul>
+            </div>
+            <div class="logo-element">
+                <img style="width:30px; height:30px;" alt="image" class="" ng-src={{sideNavLogo}}>
+            </div>
+        </li>
+
+        <li ui-sref-active="active">
+            <a ui-sref="user.dashboard"><i class="fa fa-dashboard"></i> <span class="nav-label">{{ 'My Dashboard' | translate }}</span> </a>
+        </li>
+        <li ui-sref-active="active">
+            <a ui-sref="user.rewards"><i class="fa fa-bank"></i> <span class="nav-label">{{ 'My Rewards' | translate }}</span> </a>
+        </li>
+        <li ui-sref-active="active">
+            <a ui-sref="user.redeem"><i class="fa fa-usd"></i> <span class="nav-label">{{ 'Redeem Points' | translate }}</span> </a>
+        </li>
+        <li ui-sref-active="active">
+            <a ui-sref="user.activities"><i class="fa fa-calendar"></i> <span class="nav-label">{{ 'My Activities' | translate }}</span> </a>
+        </li>
+        <li ui-sref-active="active" ng-if="vendorSettings['Referrals'] == 1">
+            <a ui-sref="user.referral"><i class="fa fa-share-alt"></i> <span class="nav-label">{{ 'Referrals' | translate }}</span> </a>
+        </li>
+        <li ui-sref-active="active">
+            <a ui-sref="user.profile"><i class="fa fa-user"></i> <span class="nav-label">{{ 'My Profile' | translate }}</span> </a>
+        </li>
+        <li ui-sref-active="active">
+            <a ui-sref="user.event"><i class="fa fa-envelope"></i> <span class="nav-label">{{ 'Email Settings' | translate }}</span> </a>
+        </li>
+    </ul>
+
+</div>
+</nav>

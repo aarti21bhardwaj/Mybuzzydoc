@@ -1,0 +1,69 @@
+<div class="loginColumns animated fadeInDown">
+  <div class="row">
+
+    <div class="col-md-6 m-t-lg text-center">
+      <h2 class="font-bold m-t-lg text-muted">Welcome To Our Patient Portal</h2>
+      <div class="profile-img-container m-t-lg">
+        <div class="m-b-md m-t-lg">
+          <img style="width:150px; height:150px;" alt="image" class="" ng-src={{vendorDetails.image_url}}>
+        </div>
+        <h3>{{ vendorDetails.org_name }}</h3>
+      </div>
+      <div class= "col-md-12 text-center">
+        <div class="ways-to-earn-link animated fadeInDown">
+          <div class="panel-group" id="accordion">
+            <div class="panel panel-success">
+              <a ui-sref="waysToEarn" aria-expanded="false" class="collapsed" style="color: white; text-decoration: none;">
+                <div class="panel-heading btn-success">
+                  <strong>See how to earn points with us</strong>
+                </div>
+              </a>
+            </div>
+          </div>
+          <!-- <a class="btn btn-success btn-md m-l-sm" ui-sref="waysToEarn"></a> -->
+
+        </div>
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-primary" ng-if="vendorDocuments != false">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed" style="color: white; text-decoration: none;">
+              <div class="panel-heading btn-primary">
+                <strong>Documents &amp; Forms</strong>
+              </div>
+            </a>
+            <div id="collapseOne" class="panel-collapse collapse panel-body text-left" aria-expanded="false">
+              <ul>
+                <li ng-repeat = "document in vendorDocuments"><a href="{{document.document_url}}" target = "_blank">{{document.name}}</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br><br><br>
+    <div class="col-md-6">
+      <div class="ibox-content">
+        <form class="m-t" name="form" role="form" ng-submit="vm.forgot_password()">
+          <div class="form-group">
+            <label for="attribute_type">Select a property that you remember</label>
+            <select name="attribute_type" id="attribute_type" class="form-control" ng-model="vm.attribute_type" ng-required="true" ng-options="i.value as i.label for i in forgotAttributes" ng-init="vm.attribute_type = 'username'"></select>
+          </div>
+
+          <div class="form-group">
+            <label for="attribute_value"></label>
+            <input placeholder="Enter Value" type="text" name="attribute_value" id="attribute_value" class="form-control" ng-model="vm.attribute_value" ng-required="true">
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary block full-width m-b">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-md-12 m-t-md text-center">
+      &copy;2016-2017 BuzzyDoc, LLC, All rights reserved. 888.696.4753 | <a href="mailto:helpme@buzzydoc.com">Email Us For Help</a>
+    </div>
+  </div>
+</div>

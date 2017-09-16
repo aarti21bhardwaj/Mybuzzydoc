@@ -1,0 +1,66 @@
+
+<div class="ways-to-earn-page animated fadeInDown">
+
+  <div class="row">
+    <div class="col-md-4 m-t-lg text-center">
+
+
+      <h2 class="font-bold m-t-lg text-muted">{{vendorDetails.welcome_message ? vendorDetails.welcome_message :' Welcome To Our Patient Portal'}}</h2>
+
+
+      <div class="profile-img-container m-t-lg">
+        <div class="m-b-md m-t-lg">
+          <img style="width:150px; height:150px;" alt="image" class="" ng-src={{vendorDetails.image_url}}>
+        </div>
+        <h3>{{ vendorDetails.org_name }}</h3>
+      </div>
+      <div class="ways-to-earn-link animated fadeInDown">
+  <a class="btn btn-primary btn-md m-l-sm" ui-sref="home">Take me to login page</a>
+</div>
+    </div>
+    <div class="col-md-8">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title bg-muted text-center">
+            <h5 class="text-success lead full-width"><strong>Ways to earn points...</strong></h5>
+          </div>
+          <div class="ibox-content m-b-lg">
+            <div class="row">
+              <div class="col-md-6" ng-show="vendorDetails.vendor_promotions.length">
+                <div class="panel panel-primary">
+                  <div class="panel-heading lead">
+                    Promotions
+                  </div>
+                  <div class="panel-body">
+                    <ul>
+                        <li ng-repeat="x in vendorDetails.vendor_promotions" ng-if="x.patient_portal_status">{{x.promotion.name}}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6" ng-show="vendorDetails.review_settings.length">
+                <div class="panel panel-primary">
+                  <div class="panel-heading lead">
+                    Reviews
+                  </div>
+                  <div class="panel-body">
+                    <ul>
+                        <li ng-show="vendorDetails.review_settings[0].review_points">Writing a review on our portal - {{vendorDetails.review_settings[0].review_points}} Points</li>
+                        <li ng-show="vendorDetails.review_settings[0].rating_points">Giving a rating on the portal - {{vendorDetails.review_settings[0].rating_points}} Points</li>
+                        <li ng-show="vendorDetails.review_settings[0].fb_points">Sharing your review on Facebook - {{vendorDetails.review_settings[0].fb_points}} Points</li>
+                        <li ng-show="vendorDetails.review_settings[0].gplus_points">Writing a Google Plus Review - {{vendorDetails.review_settings[0].gplus_points}} Points</li>
+                        <li ng-show="vendorDetails.review_settings[0].yelp_points">Writing a Yelp! Review - {{vendorDetails.review_settings[0].yelp_points}} Points</li>
+                        <li ng-show="vendorDetails.review_settings[0].ratemd_points">Writing a RateMD Review - {{vendorDetails.review_settings[0].ratemd_points}} Points</li>
+                        <li ng-show="vendorDetails.review_settings[0].yahoo_points">Writing a Yahoo Review - {{vendorDetails.review_settings[0].yahoo_points}} Points</li>
+                        <li ng-show="vendorDetails.review_settings[0].healthgrades_points">Writing a Healthgrade Review - {{vendorDetails.review_settings[0].healthgrades_points}} Points</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<div class="panel panel-success" ng-controller="SearchController as SearchCtrl">
+  <div class="panel-heading">
+    <h3 class="panel-title text-center">Patient Search</h3>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <form name="searchForm" ng-submit="SearchCtrl.search()" class = "form-inline">
+      <div class="col-lg-8 col-lg-offset-3 search-input ">
+        
+        <div class="input-group">
+              <input type="text" id="search-patient-input" class="form-control input" placeholder="Enter phone number or email or card number" ng-required ng-model="query">
+              <div class="input-group-btn">
+                  <button type="submit" class="btn  btn-success">
+                      Search
+                  </button>
+              </div>
+        </div>
+        <span>
+          <strong>or</strong>
+          <a href="#!/addPatient" class="btn btn-primary">
+            Register a New Patient
+          </a>
+        </span>
+      </div><!-- /.col-lg-6 -->
+    </div><!-- /.row -->
+    <div class="row" id="search-patient-attr">
+      <div class="col-lg-6 col-lg-offset-2 text-center">
+        <label class="radio-inline">
+          <input type="radio" name="attrType" id="attrTypePhone" value="phone" ng-model="searchtype" ng-change="changeSearchType()">Phone
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="attrType" id="attrTypeEmail" value="email" ng-model="searchtype" ng-change="changeSearchType()">Email 
+        </label>
+        <label class="radio-inline" ng-show = "auth('cards')">
+          <input type="radio" name="attrType" id="attrTypeCard" value="card" ng-model="searchtype" ng-change="changeSearchType()">Card Number
+        </label>
+        <label class="radio-inline">
+        <input type="radio" name="attrType" id="attrTypeAll" value="" ng-model="searchtype" ng-change="changeSearchType()">All
+        </label>
+      </div><!-- /.col-lg-6 -->
+    </div><!-- /.row -->
+  </div>
+          <div ng-show="resultCount === false? false : true" ng-init="resultCount=false" class="alert alert-success">
+              {{resultCount}} results found
+          </div>
+          <table class="table table-hover table-mail" ng-repeat="result in results">
+          <tbody>
+          <tr class="read" ng-repeat="user in result" ng-click="SearchCtrl.setPatient(user)">
+              <td class="mail-ontact">{{user.name || user.attribute}}<span ng-class="{'label-primary':user.name, 'label-warning':user.attribute, 'label':true, 'pull-right':true}" >{{user.name ? 'Registered' : 'Unregistered'}}</span></td>
+
+              <td class="mail-subject">{{ user.email || user.attribute_type || user.guardian_email}}</td>
+              <td class="">{{user.phone}}</td>
+              <!-- <td class="text-right mail-date">{{SearchCtrl.cards(user.user_card)}}</td> -->
+          </tr>
+          </tbody>
+          </table>         
+    <!-- /.col-lg-6 -->
+  </form>
+</div>
+<style type="text/css">
+@media only screen and (min-width: 892px) {
+  .form-control.input {
+    width: 350px !important;
+  }
+}
+</style>

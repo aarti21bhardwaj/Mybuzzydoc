@@ -1,0 +1,294 @@
+<div class="row m-b-lg m-t-lg" ng-controller="PatientController">
+
+    <div class="col-md-4">
+        <div class = "col-md-offset-1 col-md-11">
+            <h2 class="no-margins">
+                {{pat.name}}
+            </h2>
+            <h5 style="word-wrap: break-word;">{{pat.email || pat.attribute || pat.guardian_email }}</h5>
+            <small>
+                {{pat.phone || pat.attribute_type}}
+            </small>
+            <div ng-show = "pdetails != false ">
+                <h4 ng-if="pdetails.user_cards.length > 0">
+                   <b>Card: </b>{{pdetails.user_cards[0].card_number}}
+                </h4>
+                <h4 ng-if="auth('creditType') != 'wallet_credit'">
+                   <b>Store Points: </b>{{pdetails.totalStoreCredits}}
+                </h4>
+                <h4 ng-if="auth('creditType') == 'wallet_credit'">
+                   <b>Wallet Points: </b>{{pdetails.totalWalletCredits}}
+                </h4>
+                <div>
+                <i class="fa fa-sm fa-info-circle" title="Control whether your patients have the ability to redeem their points with this quick On/Off switch."></i>
+                <strong>Allow Redemptions:&nbsp;&nbsp;</strong>
+                    <input type="checkbox" name="patientRedemption" ng-change="toggleRedemptions()" ng-model="allowRedemptions" class="js-switch" ui-switch>
+                </div>
+                <h4 ng-if="auth('referrals') && referralsCount != false && referralsCount > 0">
+                   <a ng-click = "referralHistory()"><b>Pending Referrals: </b>{{referralsCount}}</a>
+                </h4>
+            </div>
+            <div ng-show = "patientsLastMilestone != ''">
+                <h4>
+                    <b>Last Milestone Level Achieved: </b>{{patientsLastMilestone}}
+                </h4>
+            </div>
+            <h4 ng-if = "vendor.tiers.length && auth('tier')">Tier : {{pat.tier[pat.tier.length-1].name}}
+                <div id="instant1" class="btn btn-xs btn-outline btn-primary" ng-if="pat.tier[pat.tier.length-1].tier_perks.length && auth('tierperks')" ng-click="showTierInfo()">Show Perks<i class="fa fa-long-arrow-right"></i></div>
+            </h4>
+            <h4 ng-if = "vendor.referral_tiers.length > 0 && auth('referralTiers')">Referral Tier : {{referralTier ? referralTier['name'] : 'No referral tier achieved'}}
+                <div id="instant2" class="btn btn-xs btn-outline btn-primary" ng-if="referralTier['perks']" ng-click="showReferralTierPerks()">Show Perks<i class="fa fa-long-arrow-right"></i></div>
+            </h4>
+        </div>
+    <div class="ibox-content" ng-if="activeGiftCoupons.length">
+        <div id="vertical-timeline" class="vertical-container light-timeline no-margins">
+            <div class="vertical-timeline-block" ng-repeat = "activeGiftCoupon in activeGiftCoupons">
+                <div class="vertical-timeline-icon navy-bg">
+                    <i class="fa fa-gift"></i>
+                </div>
+                    <div class="vertical-timeline-content" style="padding:0px !important"><!-- 
+                        <p>{{activeGiftCoupon.description}}</p> -->
+                        <div class="m-t" style="margin-top:-5px;">
+                                <button id="{{activeGiftCoupon.gift_coupon_award_id}}" type="button" class="btn btn-success btn-outline btn-md btn-block" ng-click="redeemGiftCoupon(activeGiftCoupon.gift_coupon_award_id)">
+                                {{activeGiftCoupon.description}}  <i class="fa fa-long-arrow-right" ></i>
+                                </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="col-md-7">
+        	
+            <div class="tabs-container">
+
+                <div class="tabs-left" id="awardTabs">
+                    <ul class="nav nav-tabs">
+                        <li ng-repeat="order in sortOrder" id="{{order}}" ng-class="{'active':{{order}}}" ng-init="$index == $last ? tabList[firstTab].click() : ''" ng-show= "tabList[order].viewCondition">
+                            <a data-toggle="tab" ng-click="tabList[order].click()" id = 'link{{order}}'>
+                                <span class="hidden-xs">{{tabList[order].name}}</span>
+                                <span class="visible-xs"><i class="fa {{tabList[order].iconClass}}"></i></span>
+                            </a>
+                        </li>
+                        <!-- <li id="tab1" ng-class="{'active':tab1}" ng-init="tab1=true">
+                            <a data-toggle="tab" ng-click="tabSwitch(1)">
+                                <span class="hidden-xs">Marketing Promotions</span>
+                                <span class="visible-xs"><i class="fa fa-th-list"></i></span>
+                            </a>
+                        </li>
+                        <li id="tab2" ng-class="{'active':tab2}" ng-if = "auth('tier')">
+                            <a data-toggle="tab" ng-click="tabSwitch(2)">
+                                <span class="hidden-xs">Amount Spent</span>
+                                <span class="visible-xs"><i class="fa fa-usd"></i></span>
+                            </a>
+                        </li>
+                        <li id="tab3" ng-class="{'active':tab3}" ng-if = "auth('manualpoints')">
+                            <a data-toggle="tab" ng-click="tabSwitch(3)">
+                                <span class="hidden-xs">Manual Points</span>
+                                <span class="visible-xs"><i class="fa fa-money"></i></span>
+                            </a>
+                        </li>
+                        <li id="tab4" ng-class="{'active':tab4}" ng-if = "auth('compliancesurvey')">
+                            <a data-toggle="tab" ng-click="tabSwitch(4); surveyInit()">
+                                <span class="hidden-xs">Compliance Survey</span>
+                                <span class="visible-xs"><i class="fa fa-pencil-square-o"></i></span>
+                            </a>
+                        </li> -->
+                    </ul>
+                    <div class="tab-content ">
+                        <div id="tab-1" ng-class="{'active':tab1, 'tab-pane': true}">
+                            <div class="panel-body">
+
+                                <div ng-if = "!showPromo"><h3>{{promoErrorMessage}}</h3></div>
+                                <fieldset ng-if = "showPromo">
+                                    <h3>
+                                        Practice Promotions
+                                    </h3>
+                                    <a ng-if="!sortablePromos && vendor.vendor_promotions.length" ng-click= "sortablePromosInit ? enableSortableVendorPromotions() : initSortableVendorPromotions()"><i class="fa fa-sm fa-info-circle"></i><strong> Click here to reorder practice promotions.</strong></a>
+                                    <span ng-if="sortablePromos">
+                                        <i class="fa fa-sm fa-info-circle"></i>
+                                            <strong> Drag &amp; Drop promotions to reorder them. 
+                                                <br>
+                                                <a ng-click= "disableSortableVendorPromotions()">
+                                                    Click Here once you are done
+                                                </a>
+                                            </strong>
+                                    </span>
+                                    <div id="vendorPromotions">
+                                        <div ng-repeat="promotion in vendor.vendor_promotions" id="prom{{promotion.id}}" ng-if="frequency[promotion.id] || sortablePromos" class="checkbox">
+                                                <input id="checkbox{{promotion.id}}" type="checkbox" name="{{promotion.id}}" ng-click="pushToArray(promotion.id)" ng-disabled = "sortablePromos" ng-model = "selectedpromo[$index]" ng-init="promoMultiplier[promotion.id] = 1">
+                                                <label for="checkbox{{promotion.id}}">
+                                                    {{promotion.promotion.name}} ({{promotion.points}})
+                                                    {{ promoMultiplier[promotion.id] == 1 ? '' : ' x '+promoMultiplier[promotion.id]}} <a ng-hide = "sortablePromos" ng-click="setMultiplier(promotion)"><small>Set multiplier</small></a>
+                                                    &nbsp
+                                                    <a ng-show="promotion.is_note_required" ng-click="addNote(promotion)"><small><i class="fa fa-plus"></i>Add Note</small></a>
+                                                </label>
+                                            
+                                            <!-- <input id="multiplier{promotion.id}}" type="number" class="col-sm-1" ng-disabled = "sortablePromos"> -->
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="options col-sm-6">
+                                            <select class="form-control m-b" ng-options="user.id as user.first_name for user in vendor.users" ng-init = "staffId ? user.prom = staffId : user.prom = ''" ng-model="user.prom" ng-change="changeUser()" name="awardedBy">
+                                                <option value="">
+                                                    --Please Select--
+                                                </option>
+                                            </select>
+                                            <!-- <select class="form-control m-b" name="treatedBy">
+                                                <option>User 1</option>
+                                                <option>User 2</option>
+                                            </select> -->
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary" ng-click="postPatientMgmt()" ng-disabled = "!selectedPromotions.length || awardPromoBtn || user.prom == ''">Award points</button>
+                                </fieldset>
+
+                            </div>
+                        </div>
+                        <div id="tab-2" ng-class="{'active':tab2, 'tab-pane': true}">
+                            <div class="panel-body" ng-controller="TierController as Tier">
+                                <h3>Amount Spent</h3>
+                                <br>
+                                <span ng-if = "!vendor.tiers.length">
+                                    <h4>No tiers are set</h4>
+                                    <a href="{{setTiers}}" id="setTiers" target="_blank" class="btn btn-success">Set Tiers</a>
+                                </span>
+                                <form name="tierForm" class="form-horizontal col-sm-offset-1" data-toggle= "validator" ng-if = "vendor.tiers.length">
+                                    <div class="form-group" style="height:40px">
+                                        <label class="col-sm-2 control-label">Transaction Amount</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="number" min = "1" required = "true" ng-model = "request.amount">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-4 col-sm-offset-5">
+                                            <button id = "tierSubmit" class="btn btn-primary" ng-click="Tier.awardTierPoints()" type="button" ng-disabled="tierForm.$invalid || !awardButton">Award</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+
+                        <div id="tab-3" ng-class="{'active':tab3, 'tab-pane': true}">
+                            <div class="panel-body" ng-controller="ManualController as Manual">
+                                <h3>Manual Points</h3>
+                                <form name="manualForm" class="form-horizontal col-sm-offset-1 data-toggle= "validator" >
+                                    <!-- <div class="row"> -->
+                                        <div class="form-group" style="height:40px">
+                                            <label class="col-sm-3 control-label">Enter Points</label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control" type="number" min = "1" required = "true"  ng-model = "request.points" onkeypress = "disAllowDotInIntegerInput(event)" onpaste="return false">
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="height:70px">
+                                            <label class="col-sm-3 control-label">Description</label>
+                                            <div class="col-sm-9">
+                                                <textarea class="form-control" type="text" required = "true"  ng-model = "request.description"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">Given By</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control m-b" ng-options="user.id as user.first_name for user in vendor.users" required = "true" ng-model="manualUserId" name="manualAwardedBy" ng-init = "staffId ? manualUserId = staffId : manualUserId = ''">
+                                                    <option value="">
+                                                        --Please Select--
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4 col-sm-offset-5">
+                                                <button id = "manualSubmit" class="btn btn-primary" ng-click="Manual.awardManualPoints()" type="button" ng-disabled="manualForm.$invalid || manualAwardButton">Award</button>
+                                            </div>
+                                        </div>
+                                    <!-- </div> -->
+                                </form>
+                            </div>
+                        </div>
+                        <div id="tab-4" ng-class="{'active':tab4, 'tab-pane': true}">
+                            <div class="panel-body" ng-controller="SurveyController as Survey">
+                                <div class = "text-center">
+                                    <h3><strong>Compliance Survey</strong></h3>
+                                </div>
+                                <div class="survey-view col-lg-12">
+                                    <!-- Slider main container -->
+                                    <div ng-if="!surveyCheck"><h4><strong>{{surveyMessage}}</strong></h4></div>
+                                    <div class="swiper-container" ng-if="surveyCheck">
+                                        <!-- Additional required wrapper -->
+                                        <div class="swiper-wrapper" style="transform: translate3d(40px,0,0) !important;">
+                                            <!-- Slides -->
+                                            <div class="swiper-slide" ng-repeat="squest in surveyQuestions.vendor_survey_questions" ng-if = "frequency[squest.id]">
+                                                    <br>
+                                                    <div class="row">
+                                                        <label class="col-sm-offset-2 col-lg-9">
+                                                            {{squest.survey_question.question.text}}
+                                                            
+                                                        </label>
+                                                        <div class="col-sm-2 col-sm-offset-2">
+                                                            <span>
+                                                                <div>
+                                                                    <label>
+                                                                        <input id="yes{{squest.id}}" ng-model="request.survey_instance_responses[squest.id].response" ng-value="true" name="yes{{squest.id}}" type="radio" class = "radioYes" ng-click="Survey.nextSlide()" ng-change="request.survey_instance_responses[squest.id].response ? request.survey_instance_responses[squest.id].forPerfectSurvey = true : ''">
+                                                                        Yes
+                                                                    </label>
+                                                                </div>
+                                                                <div>
+                                                                    <label>
+                                                                        <input id="no{{squest.id}}" ng-click="Survey.nextSlide()" ng-value="false" ng-model="request.survey_instance_responses[squest.id].response" name="no{{squest.id}}" type="radio" class = "radioNo">
+                                                                        No
+                                                                    </label>
+                                                                </div>
+                                                            </span>
+                                                        </div>
+                                                     </div>
+                                                    <br>
+                                                    <div class="row col-sm-offset-2" ng-show = "showForPerfect" id = 'checkedSurvey'>
+                                                        <input id="forPerfect{{squest.id}}" type="checkbox" ng-model="request.survey_instance_responses[squest.id].forPerfectSurvey" ng-disabled = "request.survey_instance_responses[squest.id].response"
+                                                        >
+                                                        <label>
+                                                            *Count this question for Perfect Patient
+                                                        </label>
+                                                    </div>
+                                                    <br><br>
+                                            </div>
+                                            <div class="swiper-slide">
+                                                    <br><br>
+                                                    <div class="row">
+                                                        <div class="col-sm-offset-4">
+                                                            <button class="btn btn-primary btn-lg" ng-click="Survey.submitSurvey()" id ="surveySubmit" ng-disabled="submitButton || Survey.checkQuestions()">
+                                                            {{submitButtonText}}
+                                                            </button>
+                                                            <br><br>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <!-- If we need pagination -->
+                                        <div class="swiper-pagination"></div>
+                                        
+                                        <!-- If we need navigation buttons -->
+                                        <div id="swiperPrev" class="swiper-button-prev"></div>
+                                        <div id="swiperNext" class="swiper-button-next"></div>
+                                        
+                                        <!-- If we need scrollbar -->
+                                        <div class="swiper-scrollbar"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <i class="fa fa-lg fa-info-circle"></i><strong> Tabs can be sorted according to your convenience.</strong>
+        </div>
+</div>
+
+
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+
+        $('<style>.tour-step-backdrop { background-color: white; }</style>').appendTo('body');
+    });
+</script>

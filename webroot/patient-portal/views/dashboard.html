@@ -1,0 +1,152 @@
+<toaster-container></toaster-container>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>My Dashboard</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a ui-sref="user.dashboard">Home</a>
+      </li>
+      <li class="active">
+        <strong>My Dashboard</strong>
+      </li>
+    </ol>
+  </div>
+  <div class="col-lg-2">
+
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-4">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <span class="label label-success pull-right">Total</span>
+        <h5>Wallet Credits</h5>
+      </div>
+      <div class="ibox-content" >
+        <h1 class="no-margins" ng-show="userData.walletCredits.length">{{userData.totalWalletCredits}}</h1>
+
+        <div class="alert alert-info fade in" ng-show="!userData.walletCredits.length">
+          <strong>No Wallet Credit earned yet!</strong>
+        </div>
+        
+        <strong ng-show="userData.walletCredits.length">Missing points?<b><a href="http://helpme.buzzydoc.com/support/solutions/articles/25000006516-help-i-didn-t-get-my-points-" target="_blank"> Click here</a> to know more.</strong>
+        
+      </div>
+      <div class="ibox-footer" ng-show="userData.walletCredits.length">
+        <div class="text-center">
+          <a class ="btn btn-success" ui-sref="user.redeem">Redeem Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <span class="label label-info pull-right">Total</span>
+        <h5>Store Credits</h5>
+      </div>
+      <div class="ibox-content">
+        <h1 class="no-margins" ng-show="userData.storeCredits.length">{{userData.totalStoreCredits}}</h1>
+        <div class="alert alert-info fade in" ng-show="!userData.storeCredits.length">
+          <strong>No Store Credit earned yet!</strong>
+        </div>
+        <strong ng-show="userData.storeCredits.length">Missing points?<b><a href="http://helpme.buzzydoc.com/support/solutions/articles/25000006516-help-i-didn-t-get-my-points-" target="_blank"> Click here</a> to know more.</strong>
+      </div>
+      <div class="ibox-footer" ng-show="userData.storeCredits.length">
+        <div class="text-center"><a class ="btn btn-info"  ui-sref="user.rewards">View Credits Info</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <span class="label label-primary pull-right">History</span>
+        <h5>Last Activity</h5>
+      </div>
+      <div class="ibox-content">
+        <div class="alert alert-info fade in" ng-show="!userData.activities.length">
+          <strong>No activities yet!</strong>
+        </div>
+        <p class="" ng-show="userData.activities[0].action == 'reward'">You have <span class="badge badge-success ng-binding">{{userData.activities[0].points}}</span>&nbsp; {{userData.activities[0].reward_method.label}} points from <strong>{{userData.activities[0].vendor.name}}.</strong></p>
+
+        <p class="" ng-show="userData.activities[0].action == 'redeem' && userData.activities[0].reward_method.name=='wallet_credit'" >You redeemed <span class="badge badge-primary ng-binding">{{userData.activities[0].points}}</span> &nbsp;{{userData.activities[0].reward_method.label}}&nbsp;points&nbsp; using <strong>{{userData.activities[0].service.label}}</strong></p>
+
+        <p class="" ng-show="userData.activities[0].action == 'redeem' && userData.activities[0].reward_method.name=='store_credit'" >You redeemed <span class="badge badge-info ng-binding">{{userData.activities[0].points}}</span> &nbsp;store credit points&nbsp;awarded by <strong>{{userData.activities[0].vendor.name}}.</strong></p>
+
+        <p class="" ng-show="userData.activities[0].action == 'instant_redeem' && userData.activities[0].service.name=='in_house'" >You got a <strong>{{userData.activities[0].user_instant_redemption.description}}</strong> as gift worth <span class="badge badge-success ng-binding">${{userData.activities[0].user_instant_redemption.amount}}</span> &nbsp; by <strong>{{userData.activities[0].vendor.name}}.</strong></p>
+
+        <p class="" ng-show="userData.activities[0].action == 'instant_redeem' && userData.activities[0].service.name!='in_house'" >You got a gift coupon of <strong>{{userData.activities[0].service.label}}</strong>&nbsp;worth&nbsp;<span class="badge badge-success ng-binding"> ${{userData.activities[0].user_instant_redemption.amount}}</span> &nbsp; by <strong>{{userData.activities[0].vendor.name}}.</strong></p>
+      </div>
+      <div class="ibox-footer" ng-show="userData.activities.length">
+        <div class="text-center"><a class ="btn btn-primary" ui-sref="user.activities">View Activities</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row" ng-show="!userData.social_profiles.length">
+  <div class="ibox float-e-margins">
+    <div class="ibox-title">
+      <h5 class="text-info lead"><strong>Notifications</strong></h5>
+    </div>
+    <div class="ibox-content">
+      <div class="row" >
+        <div class="alert alert-info fade in pull-left full-width" >
+          <span class="col-md-8" style="line-height: 3;">
+            <strong>You haven't linked your Facebook Account with us!</strong>
+          </span>
+          <span class="col-md-4 text-center">
+            <a ng-click="vm.LinkFb()" class="btn btn-success btn-social btn-facebook " style="background-color: #3b5998;">
+              <span class="fa fa-facebook"></span> Link Facebook Account</a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" >
+    <div class="ibox float-e-margins">
+      <div class="ibox-title bg-muted">
+        <h5 class="text-success lead"><strong>Ways to earn more points...</strong></h5>
+      </div>
+      <div class="ibox-content m-b-lg">
+        <div class="row">
+          <div class="col-md-6" ng-show="vendorDetails.vendor_promotions.length">
+            <div class="panel panel-primary">
+              <div class="panel-heading lead">
+                Promotions
+              </div>
+              <div class="panel-body">
+                <ul>
+                    <li ng-repeat="x in vendorDetails.vendor_promotions" ng-if="x.patient_portal_status">{{x.promotion.name}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6" ng-show="vendorDetails.review_settings.length">
+            <div class="panel panel-primary">
+              <div class="panel-heading lead">
+                Reviews
+              </div>
+              <div class="panel-body">
+                <ul>
+                    <li ng-show="vendorDetails.review_settings[0].review_points">Writing a review on our portal - {{vendorDetails.review_settings[0].review_points}} Points</li>
+                    <li ng-show="vendorDetails.review_settings[0].rating_points">Giving a rating on the portal - {{vendorDetails.review_settings[0].rating_points}} Points</li>
+                    <li ng-show="vendorDetails.review_settings[0].fb_points">Sharing your review on Facebook - {{vendorDetails.review_settings[0].fb_points}} Points</li>
+                    <li ng-show="vendorDetails.review_settings[0].gplus_points">Writing a Google Plus Review - {{vendorDetails.review_settings[0].gplus_points}} Points</li>
+                    <li ng-show="vendorDetails.review_settings[0].yelp_points">Writing a Yelp! Review - {{vendorDetails.review_settings[0].yelp_points}} Points</li>
+                    <li ng-show="vendorDetails.review_settings[0].ratemd_points">Writing a RateMD Review - {{vendorDetails.review_settings[0].ratemd_points}} Points</li>
+                    <li ng-show="vendorDetails.review_settings[0].yahoo_points">Writing a Yahoo Review - {{vendorDetails.review_settings[0].yahoo_points}} Points</li>
+                    <li ng-show="vendorDetails.review_settings[0].healthgrades_points">Writing a Healthgrade Review - {{vendorDetails.review_settings[0].healthgrades_points}} Points</li>
+                </ul>
+                <strong ng-show="userData.reviewLink"><a href="{{userData.reviewLink}}" target="_blank">CLICK HERE</a> to Earn Points by Reviewing Your Practice.</strong>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>

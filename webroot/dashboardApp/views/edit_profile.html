@@ -1,0 +1,52 @@
+<div ng-controller="EditProfileController as EditCtrl">
+  <div class="ibox float-e-margins">
+    <div class="ibox-title col-sm-12">
+      <h5 class="col-sm-6">Edit {{pdata.name}}'s Profile</h5>
+    </div>
+    <div class="ibox-content">
+
+      <form class="form-horizontal" name="editUser" data-toggle= "validator">
+        <div class="form-group"><label class="col-lg-2 control-label">First Name</label>
+          <div class="col-lg-10"><input type="text" placeholder="Name" class="form-control" required ng-model = "editRequest.first_name">
+          </div>
+        </div>
+        <div class="form-group"><label class="col-lg-2 control-label">Last Name</label>
+          <div class="col-lg-10"><input type="text" placeholder="Name" class="form-control" required ng-model = "editRequest.last_name">
+          </div>
+        </div>
+        <div ng-if = "!editRequest.noEmail" class="form-group"><label class="col-lg-2 control-label">Email</label>
+          <div class="col-lg-10"><input type="email" placeholder="example@example.com" class="form-control" ng-required= "!editRequest.noEmail" ng-model = "editRequest.email">
+
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-2">
+          </div>
+          <div class="col-lg-10">
+            <label for="name" class="control-label">Use guardian email or link to existing email ID</label>
+            <input type="checkbox" class="m-l-sm" ng-change="EditCtrl.changeNoEmail()" ng-model="editRequest.noEmail">
+          </div>
+        </div>
+        <div ng-if = "editRequest.noEmail" class="form-group"><label class="col-lg-2 control-label">Username</label>
+          <div class="col-lg-10">
+            <input type="text" name="username" class="form-control" ng-required= "editRequest.noEmail" ng-model = "editRequest.username">
+          </div>
+        </div>
+        <div ng-if = "editRequest.noEmail" class="form-group"><label class="col-lg-2 control-label">Guardian's Email</label>
+          <div class="col-lg-10">
+            <input type="email" name="guardian_email" class="form-control" ng-required= "editRequest.noEmail" ng-model = "editRequest.guardian_email">
+          </div>
+        </div>
+        <div class="form-group"><label class="col-lg-2 control-label">Phone</label>
+          <div class="col-lg-10"><input type="tel" name ="tel" placeholder="555-555-5555" data-minlength = "10" class="form-control" ng-model = "editRequest.phone" ng-pattern="numRegex" maxlength="15" ng-required= "register.noEmail && !auth('cards')"></div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-offset-2 col-lg-2">
+            <button class="btn btn-success" type="button" ng-click = " EditCtrl.editPatient()" ng-disabled = "editUser.$invalid || !saveBtn">Save Changes</button>
+          </div>
+        </div>
+      </form>
+        <br>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<div ng-controller="ReferralController as Referral">    
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title  back-change">
+                    <h5>Add Lead</h5>
+                </div>
+                <div class="ibox-content">
+
+                    <form class="form-horizontal" name="addLead" data-toggle= "validator">
+                        <div class="form-group"><label class="col-lg-2 control-label">First Name</label>
+                            <div class="col-lg-10"><input type="text" placeholder="First Name" class="form-control" required ng-model = "referralRequest.first_name" ng-change="referralRequest.referral_lead.first_name = referralRequest.first_name">
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-lg-2 control-label">Last Name</label>
+                            <div class="col-lg-10"><input type="text" placeholder="Last Name" class="form-control" required ng-model = "referralRequest.last_name" ng-change="referralRequest.referral_lead.last_name = referralRequest.last_name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-2">
+                            </div>
+                            <div class="col-lg-10">
+                                <label for="name" class="control-label">Is an Adult?</label>
+                                <input type="checkbox" class="m-l-sm" ng-init="adult = true" ng-change="Referral.adultChange()" ng-model="adult">
+                            </div>
+                        </div>
+                        <div ng-if = "!adult" class="form-group"><label class="col-lg-2 control-label">Parent's Name</label>
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" ng-required= "!adult" ng-model = "referralRequest.referral_lead.parent_name">
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-lg-2 control-label">Email</label>
+                            <div class="col-lg-10"><input type="email" placeholder="example@example.com" class="form-control" ng-model = "referralRequest.refer_to" ng-change="referralRequest.referral_lead.email = referralRequest.refer_to">
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-lg-2 control-label">Phone</label>
+                            <div class="col-lg-10"><input type="tel" class="form-control" data-minlength = "10" ng-model = "referralRequest.phone" ng-change="referralRequest.referral_lead.phone = referralRequest.phone" ng-pattern="numRegex" maxlength="15">
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-lg-2 control-label">Preferred Calling Time</label>
+                            <div class="col-lg-10"><select class="form-control" ng-model = "referralRequest.referral_lead.preferred_talking_time" required ng-options="pct.time as pct.time for pct in preferredCallingTime"><option value="">--Please Select--</option></select>
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-lg-2 control-label">Notes</label>
+                            <div class="col-lg-10"><textarea class="form-control" ng-model = "referralRequest.referral_lead.notes"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-2">
+                                <button class="btn btn-success" type="button" ng-click = " Referral.addLead()" ng-disabled = "addLead.$invalid || submitBtn">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

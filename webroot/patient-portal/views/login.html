@@ -1,0 +1,130 @@
+<div class="loginColumns animated fadeInDown">
+  <div class="row">
+
+    <div class="col-md-6 m-t-lg text-center">
+
+
+      <h2 class="font-bold m-t-lg text-muted">{{vendorDetails.welcome_message ? vendorDetails.welcome_message :' Welcome To Our Patient Portal'}}</h2>
+
+      <div class="profile-img-container m-t-lg">
+        <div class="m-b-md m-t-lg">
+          <img style="width:150px; height:150px;" alt="image" class="" ng-src={{vendorDetails.image_url}}>
+        </div>
+        <h3>{{ vendorDetails.org_name }}</h3>
+      </div>
+      <div class= "col-md-12 text-center">
+        <div class="ways-to-earn-link animated fadeInDown">
+          <div class="panel-group" id="accordion">
+            <div class="panel panel-success">
+                <a ui-sref="waysToEarn" aria-expanded="false" class="collapsed" style="color: white; text-decoration: none;">
+                <div class="panel-heading btn-success">
+                  <strong>See how to earn points with us</strong>
+                </div>
+                </a>
+            </div>
+        </div>
+          <!-- <a class="btn btn-success btn-md m-l-sm" ui-sref="waysToEarn"></a> -->
+
+        </div>
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-primary" ng-if="vendorDocuments != false">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed" style="color: white; text-decoration: none;">
+              <div class="panel-heading btn-primary">
+                <strong>Documents &amp; Forms</strong>
+              </div>
+              </a>
+            <div id="collapseOne" class="panel-collapse collapse panel-body text-left" aria-expanded="false">
+              <ul>
+                  <li ng-repeat = "document in vendorDocuments"><a href="{{document.document_url}}" target = "_blank">{{document.name}}</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br><br><br>
+    <div class="col-md-6">
+      <div class="ibox-content">
+        <form class="m-t" name="form" role="form" ng-submit="vm.login()">
+          <div class="form-group" ng-class="{ 'has-error': (form.username.$dirty && form.username.$invalid ) || (form.username.$touched && form.username.$invalid && form.username.$pristine && form.username.$error.required)}">
+            <label for="username">Username</label>
+            <input placeholder="Enter Username" type="text" name="username" id="username" class="form-control" ng-model="vm.username" ng-required="true"/>
+            <span ng-show="(form.username.$dirty && form.username.$invalid ) || (form.username.$touched && form.username.$pristine && form.username.$invalid && form.username.$error.required)" class="help-block">Username is required.</span>
+          </div>
+          <div class="form-group" ng-class="{ 'has-error': (form.password.$dirty && form.password.$invalid ) || (form.password.$touched && form.password.$invalid && form.password.$pristine && form.password.$error.required)}">
+            <label for="password">Password</label>
+            <input placeholder="Enter Password" type="password" name="password" id="password" class="form-control" ng-model="vm.password" ng-required="true"/>
+            <span ng-show="form.password.$error.minlength" class="help-block">Password is too short.</span>
+            <span ng-show="(form.password.$dirty && form.password.$invalid ) || (form.password.$touched && form.username.$invalid && form.password.$pristine && form.password.$error.required)" class="help-block">Password is required.</span>
+          </div>
+          <div class="form-actions">
+            <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary  block full-width">Login</button>
+            <a ui-sref="forgot_password">
+              <small>Forgot password?</small>
+            </a>
+            <br>
+            <a ui-sref="trouble_logging_in" style="color:red" ng-show="loginFailed">
+              <strong>Trouble logging in?</strong>
+            </a>
+          </div>
+          <p class="text-center m-t-sm">Or</p>
+          <div class="form-actions">
+            <a href="javascript:void(0);" ng-click="vm.fbLogin()" ng-disabled="false" class="btn btn-success btn-social btn-facebook full-width" style="background-color: #3b5998;">
+              <span class="fa fa-facebook"></span> Sign in with Facebook</a>
+            </div>
+  <iframe style="display: none;" name="facebookIframe" frameborder="0" dscrolling="yes" allowtransparency="true"></iframe>
+  <!-- <button class="btn btn-success btn-social btn-facebook" onclick="openFacebookIframePopup()">Facebook Login</button> -->
+            <!-- end -->
+             
+            <p class="text-muted text-center"  ng-if="vendorSettings['Patient Self Sign Up']">
+              <small>Do not have an account?</small>
+            </p>
+            <div class="form-actions text-center"  ng-if="vendorSettings['Patient Self Sign Up']">
+                <a class="btn btn-success btn-md m-r-sm" ui-sref="register">Sign Up</a>
+                <span>Or</span>
+                  <a ng-if="vendorSettings['Cards'] == 1" ng-click="popup" class="btn btn-success btn-social btn-facebook btn-md m-r-sm" style="background-color: #3b5998;" data-toggle="modal" href="#modal-form">
+                <span class="fa fa-facebook"></span> Sign Up with Facebook</a>
+                
+                  <a ng-if="vendorSettings['Cards'] != 1" ng-click="vm.fbSignUp()" class="btn btn-success btn-social btn-facebook btn-md m-r-sm" style="background-color: #3b5998;">
+                <span class="fa fa-facebook"></span> Sign Up with Facebook</a>
+              </div>
+
+              <div class="form-actions">
+
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-md-12 m-t-md text-center">
+          &copy;2016-2017 BuzzyDoc, LLC, All rights reserved. 888.696.4753 | <a href="mailto:helpme@buzzydoc.com">Email Us For Help</a>
+        </div>
+      </div>
+    </div>
+
+
+<div id="modal-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header"><button class="close" type="button" data-dismiss="modal" aria-hidden="true">×</button></div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12"><h3 class="m-t-none m-b">Card Number</h3>
+                        <form  name="formCard" role="form" novalidate>
+                            <div class="form-group"><label>Please Enter Card Number before Signup</label> 
+                                
+                                <input ng-pattern="numRegex" placeholder="555-555-555" type="tel" name="card_number" id="card_number" class="form-control" required = "required" ng-model="card_number" />
+
+                                <span ng-show="(formCard.card_number.$dirty && formCard.card_number.$invalid ) || (formCard.card_number.$touched && formCard.card_number.$pristine && formCard.card_number.$invalid && formCard.card_number.$error.required)" class="help-block">Card Number should be integer value.</span>                                
+                              </div>
+                          <button data-dismiss="modal" aria-hidden="true" type="submit" ng-click="vm.fbSignUp()" class="btn btn-success  block m-b" ng-disabled="formCard.$invalid">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

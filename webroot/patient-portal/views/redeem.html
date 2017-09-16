@@ -1,0 +1,118 @@
+<toaster-container></toaster-container>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Redeem Points</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a ui-sref="user.dashboard">Home</a>
+            </li>
+            <li class="active">
+                <strong>Redeem Points</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="tabs-container">
+
+            <uib-tabset>
+                <uib-tab heading="Products & Services">
+                    <div class="panel-body">
+                        <div class = "pull-right ibox-content">
+                            <input type="text" placeholder=" Search Products..." ng-model="searchReward.legacy_reward.name">
+                        </div>
+                        <div class="row ibox-content">
+                            <h3 ng-if = "vendorDetails.vendor_legacy_rewards.length <= 0">No products or services are available at the moment.</h3>
+                            <div class="col-md-3" ng-repeat="reward in vendorDetails.vendor_legacy_rewards | filter:searchReward">
+                                <div>
+                                    <div class="ibox" style="height:325px;">
+                                        <div class="ibox-content product-box" >
+                                            <div ng-if="reward.legacy_reward.image_path">                                  
+                                                <img  ng-src="{{buzzy_host+'/'+reward.legacy_reward.image_path+'/'+reward.legacy_reward.image_name}}" style = "width:228px; height: 198px;" />
+                                            </div>
+                                            <div ng-if="reward.legacy_reward.image_link && !reward.legacy_reward.image_path">                                  
+                                                <img  ng-src="{{reward.legacy_reward.image_link}}" style = "width:228px; height: 198px;" />
+                                            </div>
+                                            <div ng-if="!reward.legacy_reward.image_path && !reward.legacy_reward.image_link" class="product-imitation">
+                                                [Placeholder]
+                                            </div>
+                                            <div class="product-desc" >
+                                                <span class="product-price">
+                                                    {{reward.legacy_reward.points}}
+                                                </span>
+                                                <small class="text-muted">{{reward.legacy_reward.reward_category.name}}</small>
+
+                                                <a href="#" class="product-name" style="overflow-wrap: break-word;overflow-y: hidden;text-overflow: ellipsis;height: 45px;" alt=" {{reward.legacy_reward.name}}"> {{reward.legacy_reward.name}}</a>
+
+                                                <div class="small m-t-xs">
+                                                    <!-- Many desktop publishing packages and web page editors now. -->
+                                                </div>
+                                                <div class="m-t text-right">
+
+                                                    <div id="rr{{reward.id}}" class="btn btn-xs btn-outline btn-primary " ng-click="vm.confirmRedeem('product', reward.legacy_reward)" >Redeem <i class="fa fa-long-arrow-right"></i> </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </uib-tab>
+                <uib-tab heading="Amazon/Tango" ng-if="vendorDetails.credit_type == 'wallet_credit'">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="ibox" >
+                                    <div class="ibox-title">
+                                        <h5>Amazon</h5>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <img ng-src="img/amazon_gift_card_small_resized.png" class="img-responsive" style="border-radius: 10px;">
+                                        <div class="user-button">
+                                            <div class="row">
+                                                <br>
+                                                <div class="col-md-6">
+                                                    <button type="button" class="btn btn-default btn-sm btn-block" ng-click="whatisthis(instantReward.name, instantReward.description)">What's this? </button>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <button  ng-click="vm.confirmRedeem('giftCard','amazon')" type="button" class="btn btn-primary btn-sm btn-block" ng-click=""><i class="fa fa-gift"></i> Redeem</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="ibox" >
+                                    <div class="ibox-title">
+                                        <h5>Tango</h5>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <img ng-src="img/tangocard-small.png" class="img-responsive">
+                                        <div class="user-button">
+                                            <div class="row">
+                                                <br>
+                                                <div class="col-md-6">
+                                                    <button type="button" class="btn btn-default btn-sm btn-block" ng-click="whatisthis(instantReward.name, instantReward.description)">What's this? </button>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <button ng-click="vm.confirmRedeem('giftCard','tango')" type="button" class="btn btn-primary btn-sm btn-block" ng-click=""><i class="fa fa-gift"></i> Redeem</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+</div>
+<br><br><br>

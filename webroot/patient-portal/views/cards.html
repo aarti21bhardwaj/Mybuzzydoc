@@ -1,0 +1,63 @@
+<toaster-container></toaster-container>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Edit Profile</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a ui-sref="user.dashboard">Home</a>
+            </li>
+            <li class="active">
+                <strong>My Cards</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div> 
+
+<div class="ibox float-e-margins">
+ <div class="ibox-title" >
+    <h5>Add New Card</h5>
+</div>         
+<div class="ibox-content">
+
+  <form class="form-horizontal" name="form" role="form" ng-submit="vm.addCard()">
+    <div class="form-group"><label class="col-lg-2 control-label">Card Number</label>
+        <div class="col-lg-10"><input type="text" placeholder="Card Number" class="form-control" required ng-model = "vm.card_number">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-10">
+            <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-success  block full-width m-b">Submit</button>
+        </div>
+    </div>
+</form>
+</div>
+</div> 
+<div class="wrapper wrapper-content animated fadeIn" ng-show="userData.user_cards.length">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title" >
+                    <h5>My Cards</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="ibox-content no-padding">
+                        <ul class="list-group">
+
+                            <li class="list-group-item" ng-repeat="cards in userData.user_cards">
+                                {{cards.card_number}}
+                            </li>
+                            <div class="alert alert-info fade in" ng-show="!userData.user_cards.length">
+                                <strong>You do not have any cards yet!</strong>.
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

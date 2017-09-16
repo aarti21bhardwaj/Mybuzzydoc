@@ -1,0 +1,113 @@
+<div ng-controller="SendFlowerController as flowerCtrl">
+  <div class="ibox float-e-margins">
+    <div class="ibox-title col-sm-12">
+      <h5 class="col-sm-6">Send Flower</h5>
+    </div>
+    <div class="ibox-content">
+      <form class="form-horizontal" name="sendflower" data-toggle= "validator" ng-submit = "sendFlower()">
+        <div class="form-group"><label class="col-lg-2 control-label">Flower</label>
+          <div class="col-lg-10"><button data-toggle="modal" data-target = "#flowerModal" type="button"><img ng-src="{{flowerImgSrc}}"></button><br>
+          <i class="fa fa-lg fa-info-circle"></i><strong> Click on the image to browse for more flower options.</strong>
+          </div>
+        </div>
+        <div class="form-group"><label class="col-lg-2 control-label">Message</label>
+          <div class="col-lg-10"><input type="text" class="form-control" required ng-model = "sendFlowersRequest.message">
+          </div>
+        </div>
+        <div class="form-group"><label class="col-lg-2 control-label">Available Delivery Dates</label>
+          <div class="col-lg-10"><select class="form-control" ng-model = "sendFlowersRequest.delivery_date" required ng-options=" value for value in availableDates"><option value="">--Please Select Date--</option></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-offset-2 col-lg-2">
+            <button class="btn btn-success" type="submit" ng-disabled = "!submitBtn">Send flower</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Modal starts Here-->
+    <div class="modal inmodal fade" id="flowerModal" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title">Choose Flowers to Send</h4>
+                    <small class="font-bold">Select a flower based on the category</small>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                     <form>
+                        <div class="form-group">
+                          <label class="col-lg-2 control-label">Choose Category</label>
+                          <div class="col-lg-10">
+                            <select class="form-control" ng-model = "flowers.category" required ng-options="key for (key , value) in flowers.categories">
+                              <option value="">--Please Select Category--</option>
+                            </select>
+                          </div>
+                        </div>
+                        <br><br>
+                        <div class="form-group">
+                          <label class="col-lg-2 control-label">Choose Sub-Category</label>
+                          <div class="col-lg-10">
+                            <select class="form-control" ng-model = "flowers.subCategory" required ng-options="key for (key , value) in flowers.category" ng-change = "getProducts()">
+                              <option value="">--Please Select Sub-Category--</option>
+                            </select>
+                          </div>
+                        </div>
+                        <br></br>
+                        </form>
+                        <div class="ibox-content" ng-show="wait">
+                            <div class="spiner-example">
+                                <div class="sk-spinner sk-spinner-rotating-plane"></div>
+                            </div>
+                        </div>
+                        <div class = "text-center" ng-hide="wait">
+                        <div ng-if= '!productCount'>
+                        <h4></h4>
+                        </div>
+                        <div ng-if= 'productCount == 0'>
+                        <h4>No flowers found. Please try a different category</h4>
+                        </div>
+                        <div ng-if= 'productCount > 0'>
+                        <h4>Select Flower</h4>
+                        </div>
+                        </div>
+
+                          <div class="row" ng-hide="wait">
+                            <div class="col-md-3" ng-repeat="media in productList">
+                                <div class="ibox">
+                                    <div class="ibox-content product-box" ng-click="selectProduct(media)" data-dismiss="modal">
+                                        <div>
+                                            <img ng-src="{{media.SMALL}}" />
+                                        </div>
+                                        <div class="product-desc" style="padding:0px !important">
+                                            <span class="product-price">
+                                                ${{media.PRICE}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+
+                          <!-- <div class="col-lg-10">
+                            <div class="grid-background" ng-repeat="media in productList">
+
+                            <img ng-src="{{media.SMALL}}" />
+                          </div> -->
+
+
+                     </div>                                          
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Ends Here -->
+</div>

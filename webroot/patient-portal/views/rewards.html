@@ -1,0 +1,126 @@
+	<toaster-container></toaster-container>
+	<div class="row wrapper border-bottom white-bg page-heading">
+		<div class="col-lg-10">
+			<h2>My Rewards</h2>
+			<ol class="breadcrumb">
+				<li>
+					<a ui-sref="user.dashboard">Home</a>
+				</li>
+				<li class="active">
+					<strong>My Rewards</strong>
+				</li>
+			</ol>
+		</div>
+		<div class="col-lg-2">
+
+		</div>
+	</div>
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <span class="label label-success pull-right">Total</span>
+                <h5>Wallet Credits</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" ng-show="userData.walletCredits.length">{{userData.totalWalletCredits}}</h1>
+
+            <div class="alert alert-info fade in" ng-show="!userData.walletCredits.length">
+                                    <strong>No Wallet Credit earned yet!</strong>
+                                </div></div>
+            <div class="ibox-footer" ng-show="userData.walletCredits.length">
+                <div class="text-center"><a class ="btn btn-success" ui-sref="user.redeem">Redeem Now</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <span class="label label-info pull-right">Total</span>
+                <h5>Store Credits</h5>
+            </div>
+            <div class="ibox-content">
+               <h1 class="no-margins" ng-show="userData.storeCredits.length">{{userData.totalStoreCredits}}</h1>
+              <div class="alert alert-info fade in" ng-show="!userData.storeCredits.length">
+                                    <strong>No Store Credit earned yet!</strong>
+                                </div></div>
+            <div class="ibox-footer" ng-show="userData.storeCredits.length">
+                <div class="text-center">&nbsp;</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <span class="label label-primary pull-right">History</span>
+                <h5>Last Activity</h5>
+            </div>
+            <div class="ibox-content">
+            <div class="alert alert-info fade in" ng-show="!userData.activities.length">
+                                    <strong>No activities yet!</strong>
+                                </div>
+            <p class="" ng-show="userData.activities[0].action == 'reward'">You have <span class="badge badge-success ng-binding">{{userData.activities[0].points}}</span>&nbsp; {{userData.activities[0].reward_method.label}} points from <strong>{{userData.activities[0].vendor.name}}.</strong></p>
+
+           <p class="" ng-show="userData.activities[0].action == 'redeem' && userData.activities[0].reward_method.name=='wallet_credit'" >You redeemed <span class="badge badge-primary ng-binding">{{userData.activities[0].points}}</span> &nbsp;{{userData.activities[0].reward_method.label}}&nbsp;points&nbsp; using <strong>{{userData.activities[0].service.label}}</strong></p>
+
+        <p class="" ng-show="userData.activities[0].action == 'redeem' && userData.activities[0].reward_method.name=='store_credit'" >You redeemed <span class="badge badge-info ng-binding">{{userData.activities[0].points}}</span> &nbsp;store credit points&nbsp;awarded by <strong>{{userData.activities[0].vendor.name}}.</strong></p>
+
+            <p class="" ng-show="userData.activities[0].action == 'instant_redeem' && userData.activities[0].service.name=='in_house'" >You got a <strong>{{userData.activities[0].user_instant_redemption.description}}</strong> as gift worth <span class="badge badge-success ng-binding">${{userData.activities[0].user_instant_redemption.amount}}</span> &nbsp; by <strong>{{userData.activities[0].vendor.name}}.</strong></p>
+
+            <p class="" ng-show="userData.activities[0].action == 'instant_redeem' && userData.activities[0].service.name!='in_house'" >You got a gift coupon of <strong>{{userData.activities[0].service.label}}</strong>&nbsp;worth&nbsp;<span class="badge badge-success ng-binding"> ${{userData.activities[0].user_instant_redemption.amount}}</span> &nbsp; by <strong>{{userData.activities[0].vendor.name}}.</strong></p>
+                </div>
+                <div class="ibox-footer">
+                    <div class="text-center"><a class ="btn btn-primary" ui-sref="user.activities">View Activities</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="wrapper wrapper-content animated fadeIn" ng-show="userData.storeCredits.length || userData.walletCredits.length">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title" >
+						<h5>Wallet Credits</h5>
+					</div>
+					<div class="ibox-content">
+						<div class="ibox-content no-padding">
+							<ul class="list-group">
+
+								<li class="list-group-item" ng-repeat="credit in userData.walletCredits" ng-show="userData.walletCredits.length">
+								<!-- <pre>{{credit}}</pre> -->
+									<span class="badge badge-success">{{credit.points}}</span>
+									{{credit.vendor.name}}
+								</li>
+								<div class="alert alert-info fade in" ng-show="!userData.walletCredits.length">
+									<strong>You do not have any wallet credit!</strong>.
+								</div>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title" >
+						<h5>Store Credits</h5>
+					</div>
+					<div class="ibox-content">
+						<div class="ibox-content no-padding">
+							<ul class="list-group">
+
+								<li class="list-group-item" ng-repeat="credit in userData.storeCredits" ng-show="userData.storeCredits.length">
+									<span class="badge badge-info">{{credit.points}}</span>
+									{{credit.vendor.name}}
+								</li>
+								<div class="alert alert-info fade in" ng-show="!userData.storeCredits.length">
+									<strong>You do not have any wallet credit!</strong>.
+								</div>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>

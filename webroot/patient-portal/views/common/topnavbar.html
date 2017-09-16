@@ -1,0 +1,18 @@
+<div class="row border-bottom"> 
+    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0"> 
+        <div class="navbar-header"> 
+            <span minimaliza-sidebar></span> 
+        </div> 
+        <ul class="nav navbar-top-links pull-right"> 
+            <li uib-dropdown> 
+                <a ng-show="userData.linkedAccount" href uib-dropdown-toggle> <i class="fa fa-users"></i> Switch Account <span class="caret"></span> </a> 
+                <ul role="menu" uib-dropdown-menu> 
+                    <li ng-click="vm.switchAccount($event)" ng-repeat="x in userData.linkedAccount" class="border-bottom border-size-md">
+                        <a href="javascript:;" data-id="{{ x.id}}">{{ x.username}}</a>
+                    </li> 
+                </ul> 
+            </li> 
+            <li> <a ng-click="vm.logout()"> <i class="fa fa-sign-out"></i> Log out </a> </li> 
+        </ul> 
+    </nav> 
+</div>

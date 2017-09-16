@@ -1,0 +1,19 @@
+#collapseSearchResponse .panel-body{
+	max-height: 300px;
+	overflow-y: scroll;
+}
+#search-user-response-accordion{
+	display:none;
+}
+.instantRewardButton{
+	width: 39px;
+	height: 230px;
+	position: fixed;
+	z-index: 100002;
+	opacity: 0.8;
+	transition: opacity 100ms;
+}
+.instantRewardButtonCont{
+	bottom: -35px;
+	right: 12px;
+}

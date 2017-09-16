@@ -1,0 +1,98 @@
+<toaster-container></toaster-container>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>Referrals</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a ui-sref="user.dashboard">Home</a>
+      </li>
+      <li class="active">
+        <strong>Refer</strong>
+      </li>
+    </ol>
+  </div>
+  
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+ 
+<div class="ibox float-e-margins">
+  <div class="ibox-content">
+    <form class="form-horizontal" name="form" role="form" ng-submit="vm.refer()" novalidate>
+      <div class="form-group" ng-class="{ 'has-error': (form.first_name.$dirty && form.first_name.$invalid ) || (form.first_name.$touched && form.first_name.$invalid && form.first_name.$pristine && form.first_name.$error.required)}">
+        <label for="first_name" class="col-lg-2 control-label">First Name</label>
+        <div class="col-lg-10">
+          <input placeholder="Enter Referral's First Name" type="text" name="first_name" id="first_name" class="form-control" required = "required" ng-model="vm.first_name"
+          />
+          <span ng-show="(form.first_name.$dirty && form.first_name.$invalid ) || (form.first_name.$touched && form.first_name.$pristine && form.first_name.$invalid && form.first_name.$error.required)" class="help-block">First Name is required.</span>
+        </div>
+      </div>
+      <div class="hr-line-dashed"></div>
+      <div class="form-group" ng-class="{ 'has-error': (form.last_name.$dirty && form.last_name.$invalid ) || (form.last_name.$touched && form.last_name.$invalid && form.last_name.$pristine && form.last_name.$error.required)}">
+        <label for="last_name" class="col-lg-2 control-label">Last Name</label>
+        <div class="col-lg-10">
+          <input placeholder="Enter Referral's Last Name" type="text" name="last_name" id="last_name" class="form-control" required = "required" ng-model="vm.last_name"
+          />
+          <span ng-show="(form.last_name.$dirty && form.last_name.$invalid ) || (form.last_name.$touched && form.last_name.$pristine && form.last_name.$invalid && form.last_name.$error.required)" class="help-block">Last Name is required.</span>
+        </div>
+      </div>
+      <div class="hr-line-dashed"></div>
+      <div class="form-group" ng-class="{ 'has-error': (form.refer_to.$dirty && form.refer_to.$invalid ) || (form.refer_to.$touched && form.refer_to.$invalid && form.refer_to.$pristine && form.refer_to.$error.required)}">
+        <label for="name" class="col-lg-2 control-label">Referral's Email</label>
+        <div class="col-lg-10">
+          <input placeholder="Enter Referral's Email" type="email" name="refer_to" id="refer_to" required = "required" class="form-control" ng-model="vm.refer_to"
+          />
+          <span ng-show="(form.refer_to.$dirty && form.refer_to.$invalid ) || (form.refer_to.$touched && form.refer_to.$pristine && form.refer_to.$invalid && form.refer_to.$error.required)" class="help-block">Referral's Email is required.</span>
+
+        </div>
+      </div>
+      <div class="hr-line-dashed"></div>
+      <div class="form-group" ng-class="{ 'has-error': (form.phone.$dirty && form.phone.$invalid ) || (form.phone.$touched && form.phone.$invalid && form.phone.$pristine && form.phone.$error.required)}">
+        <label for="name" class="col-lg-2 control-label">Phone</label>
+        <div class="col-lg-10">
+          <input placeholder="Enter Referral's Phone Number" type="tel" name="phone" id="phone" class="form-control" ng-model="vm.phone"
+          />
+          <span ng-show="(form.phone.$dirty && form.phone.$invalid ) || (form.phone.$touched && form.phone.$pristine && form.phone.$invalid && form.phone.$error.required)" class="help-block">Phone is required.</span>
+        </div>
+      </div>
+      <div class="hr-line-dashed"></div>
+      <div class="form-group" ng-class="{ 'has-error': (form.account.$dirty && form.account.$invalid ) || (form.account.$touched && form.account.$invalid && form.account.$pristine && form.account.$error.required)}">
+        <label for="name" class="col-lg-2 control-label">Select Template</label>
+        <div class="col-lg-10">
+          <select class="form-control m-b" name="account"  ng-model="selectedTemplate" ng-change="selectTemplate()">
+            <option value="">--Please Select--</option>
+            <option ng-repeat="template in vendorDetails.referral_templates" value={{template.id}}>{{template.subject}}</option>
+          </select>
+          <span ng-show="(form.account.$dirty && form.account.$invalid ) || (form.account.$touched && form.account.$pristine && form.account.$invalid && form.account.$error.required)" class="help-block">Template is required.</span>
+        </div>
+      </div>
+      <div class="hr-line-dashed"></div>
+      <div class="form-group" ng-class="{ 'has-error': (form.subject.$dirty && form.subject.$invalid ) || (form.subject.$touched && form.subject.$invalid && form.subject.$pristine && form.subject.$error.required)}">
+        <label for="name" class="col-lg-2 control-label">Subject</label>
+        <div class="col-lg-10">
+          <input placeholder="Enter Subject" type="text" name="subject" id="subject" required = "required" class="form-control" ng-model="vm.subject"
+          />
+          <span ng-show="(form.subject.$dirty && form.subject.$invalid ) || (form.subject.$touched && form.subject.$pristine && form.subject.$invalid && form.subject.$error.required)" class="help-block">Subject is required.</span>
+        </div>
+      </div>
+      <div class="hr-line-dashed"></div>
+      <div class="form-group" ng-class="{ 'has-error': (form.description.$dirty && form.description.$invalid ) || (form.description.$touched && form.description.$invalid && form.description.$pristine && form.description.$error.required)}">
+        <label for="name" class="col-lg-2 control-label">Description</label>
+        <div class="col-lg-10">
+          <textarea  name="description"  rows="5" id="description" required = "required" class="form-control" ng-model="vm.description" ></textarea>
+          <span ng-show="(form.description.$dirty && form.description.$invalid ) || (form.description.$touched && form.description.$pristine && form.description.$invalid && form.description.$error.required)" class="help-block">Description is required.</span>
+        </div>
+      </div>
+      <div class="hr-line-dashed"></div>
+      <div class="form-group">
+        <div class="col-sm-4 col-sm-offset-2">
+          <button type="submit" ng-disabled="form.$invalid" class="btn btn-success  block m-b">Submit</button>
+        </div>
+      </div>
+
+    </form>
+    </div>
+    </div>
+    </div>
+</div>
